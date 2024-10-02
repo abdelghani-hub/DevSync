@@ -5,30 +5,13 @@
          version="5.0">
 
     <servlet>
-        <servlet-name>myServlet</servlet-name>
-        <servlet-class>org.youcode.devsync.servlet.MyServlet</servlet-class>
+        <servlet-name>RegisterServlet</servlet-name>
+        <servlet-class>org.youcode.devsync.servlet.RegisterServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>myServlet</servlet-name>
-        <url-pattern>/hello_servlet</url-pattern>
+        <servlet-name>RegisterServlet</servlet-name>
+        <url-pattern>/register</url-pattern>
     </servlet-mapping>
 
-    <servlet>
-        <servlet-name>jersey-servlet</servlet-name>
-        <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
-        <init-param>
-            <param-name>jersey.config.server.provider.classnames</param-name>
-            <param-value>org.youcode.devsync.controller.ApiController</param-value>
-        </init-param>
-        <init-param>
-            <param-name>jersey.config.server.provider.packages</param-name>
-            <param-value>com.devsync</param-value>
-        </init-param>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>jersey-servlet</servlet-name>
-        <url-pattern>/api/*</url-pattern>
-    </servlet-mapping>
 </web-app>

@@ -2,26 +2,23 @@ package org.youcode.devsync.servlet;
 
 import java.io.*;
 
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
-@WebServlet(name = "myServlet", value = "/my_servlet")
+@WebServlet(name = "myServlet", value = "/")
 public class MyServlet extends HttpServlet {
-    private String message;
-
-    // init
-    public void init() {
-        message = "Hello From Servlet!";
-    }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.setContentType("text/html");
-        PrintWriter out = response.getWriter();
-        out.println("<html><body>");
-        out.println("<h1>" + message + "</h1>");
-        out.println("</body></html>");
+        RequestDispatcher view = request.getRequestDispatcher("index.jsp");
+        try {
+            view.forward(request, response);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void destroy() {
+
     }
 }
