@@ -3,11 +3,9 @@
 <html>
 <head>
     <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css"  rel="stylesheet" />
-    <title>DevSync _ Register</title>
+    <title>DevSync _ Taskify</title>
 </head>
 <body>
-
-
 
 <nav class="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
     <div class="px-3 py-3 lg:px-5 lg:pl-3">

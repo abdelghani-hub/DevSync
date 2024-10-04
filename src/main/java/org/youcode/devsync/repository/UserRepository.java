@@ -5,6 +5,7 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import org.youcode.devsync.interfaces.RepositoryInterface;
 import org.youcode.devsync.model.User;
+import org.youcode.devsync.util.StringUtil;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,7 +22,7 @@ public class UserRepository implements RepositoryInterface<User> {
 
     @Override
     public Optional<User> findById(Long id) {
-        return Optional.empty();
+        return Optional.of(entityManager.find(User.class, id));
     }
 
     @Override
@@ -31,6 +32,8 @@ public class UserRepository implements RepositoryInterface<User> {
 
     @Override
     public Optional<User> create(User user) {
+        //hash password
+        user.setPassword(StringUtil.hashPassword(user.getPassword()));
         try {
             entityManager.getTransaction().begin();
             entityManager.persist(user);
@@ -56,5 +59,16 @@ public class UserRepository implements RepositoryInterface<User> {
     @Override
     public Optional<User> deleteById(Long id) {
         return Optional.empty();
+    }
+
+    public Optional<User> findByEmail(String email) {
+        try {
+            return Optional.of(entityManager.createQuery("SELECT u FROM User u WHERE u.email = :email", User.class)
+                    .setParameter("email", email)
+                    .getSingleResult());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Optional.empty();
+        }
     }
 }

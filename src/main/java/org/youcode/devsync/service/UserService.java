@@ -24,4 +24,8 @@ public class UserService {
     public Optional<User> createUser(User user) {
         return userRepository.create(user);
     }
+
+    public Optional<User> getUserByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
 }
