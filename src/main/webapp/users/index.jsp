@@ -74,11 +74,23 @@
                             </td>
                             <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">${user.firstName}</td>
                             <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">${user.lastName}</td>
-                            <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                <a href="${pageContext.request.contextPath}/users/${user.id}/edit"
-                                   class="text-primary-600 hover:underline dark:text-primary-500">Edit</a>
-                                <a href="${pageContext.request.contextPath}/users/${user.id}/delete"
-                                   class="text-red-600 hover:underline dark:text-red-500">Delete</a>
+                            <td class="flex items-center x-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <%-- Edit --%>
+                                <div>
+                                    <a href="${pageContext.request.contextPath}/users/${user.id}/edit"
+                                       class="text-gray-900 bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-lime-300 dark:focus:ring-lime-800 shadow-lg shadow-lime-500/50 dark:shadow-lg dark:shadow-lime-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Edit</a>
+                                </div>
+
+                                <%-- Delete --%>
+                                <form action="${pageContext.request.contextPath}/users/delete"
+                                        method="post"
+                                        class="flex p-0 m-0">
+                                    <input type="hidden" name="id" value="${user.id}">
+                                    <button type="submit" value="Delete"
+                                        class="delete-btn text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2">
+                                        Delete
+                                    </button>
+                                </form>
                             </td>
                         </tr>
                         </c:forEach>
@@ -94,5 +106,17 @@
 <jsp:include page="../layouts/footer.jsp"/>
 
 <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
+<script>
+    const deleteBtns = document.querySelectorAll('.delete-btn');
+    deleteBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const isConfirmed = confirm('Are you sure you want to delete this user?');
+            if (isConfirmed) {
+                e.target.closest('form').submit();
+            }
+        });
+    });
+</script>
 </body>
 </html>

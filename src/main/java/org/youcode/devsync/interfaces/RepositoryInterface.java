@@ -8,6 +8,5 @@ public interface RepositoryInterface<T> {
     public List<T> findAll();
     public Optional<T> create(T object);
     public Optional<T> update(T object);
-    public Optional<T> delete(T object);
-    public Optional<T> deleteById(Long id);
+    public T delete(T object);
 }

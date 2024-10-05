@@ -14,7 +14,7 @@ import org.youcode.devsync.model.UserRole;
 import org.youcode.devsync.service.UserService;
 import org.youcode.devsync.util.StringUtil;
 
-@WebServlet(name = "RegisterServlet", value = {"/register", "/users", "/login"})
+@WebServlet(name = "RegisterServlet", value = {"/register", "/users", "/login", "/users/delete"})
 public class RegisterServlet extends HttpServlet {
     private final UserService userService;
 
@@ -27,8 +27,7 @@ public class RegisterServlet extends HttpServlet {
         if (request.getServletPath().equals("/register")) {
             RequestDispatcher view = request.getRequestDispatcher("auth/register.jsp");
             view.forward(request, response);
-        }
-        else if (request.getServletPath().equals("/users")) {
+        } else if (request.getServletPath().equals("/users")) {
             List<User> users = userService.getAllUsers();
             request.setAttribute("users", users);
             RequestDispatcher view = request.getRequestDispatcher("users/index.jsp");
@@ -80,9 +79,9 @@ public class RegisterServlet extends HttpServlet {
             String email = request.getParameter("email");
             String password = request.getParameter("password");
             Optional<User> user = userService.getUserByEmail(email);
-            if(user.isPresent()) {
+            if (user.isPresent()) {
                 // check password
-                if(user.get().getPassword().equals(StringUtil.hashPassword(password))) {
+                if (user.get().getPassword().equals(StringUtil.hashPassword(password))) {
                     if (user.get().getRole() == UserRole.manager) {
                         response.sendRedirect(request.getContextPath() + "/users");
                     } else {
@@ -96,6 +95,36 @@ public class RegisterServlet extends HttpServlet {
                 // redirect to login page
                 response.sendRedirect(request.getContextPath() + "/login?error=invalid-credentials");
             }
+        }
+        else if (request.getServletPath().equals("/users/delete")) {
+            Long userId = Long.parseLong(request.getParameter("id"));
+            Optional<User> user = userService.getUserById(userId);
+            user.ifPresentOrElse(
+                    u -> {
+                        if (userService.deleteUser(u) != null) {
+                            try {
+                                response.sendRedirect(request.getContextPath() + "/users");
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }else {
+                            try {
+                                PrintWriter out = response.getWriter();
+                                out.println("<html><body><h1 style=\"color:red;\">User deletion failed</h1></body></html>");
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    },
+                    () -> {
+                        try {
+                            PrintWriter out = response.getWriter();
+                            out.println("<html><body><h1 style=\"color:red;\">User not found</h1></body></html>");
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+            );
         }
     }
 }
