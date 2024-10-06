@@ -25,6 +25,10 @@ public class UserService {
         return userRepository.create(user);
     }
 
+    public Optional<User> updateUser(User user) {
+        return userRepository.update(user);
+    }
+
     public Optional<User> getUserByEmail(String email) {
         return userRepository.findByEmail(email);
     }

@@ -78,6 +78,8 @@ public class UserRepository implements RepositoryInterface<User> {
     @Override
     public Optional<User> update(User user) {
         EntityManager entityManager = getEntityManager();
+        // Hash password
+        user.setPassword(StringUtil.hashPassword(user.getPassword()));
         try {
             entityManager.getTransaction().begin();
             User updatedUser = entityManager.merge(user);
