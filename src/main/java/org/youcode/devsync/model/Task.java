@@ -132,7 +132,6 @@ public class Task {
         this.createdAt = createdAt;
     }
 
-    // tags
     @ManyToMany(
             cascade = {
                     CascadeType.PERSIST,

@@ -2,10 +2,7 @@ package org.youcode.devsync.model;
 
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "tags")
@@ -41,7 +38,7 @@ public class Tag {
         this.name = name;
     }
 
-    @ManyToMany(mappedBy = "tasks")
+    @ManyToMany(mappedBy = "tags", fetch = FetchType.LAZY)
     private Set<Task> tasks = new HashSet<>();
 
     public List<Task> getTasks() {
@@ -54,5 +51,14 @@ public class Tag {
 
     public void removeTask(Task task) {
         tasks.remove(task);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Tag tag = (Tag) o;
+        // use id and name
+        return Objects.equals(id, tag.id) && Objects.equals(name, tag.name);
     }
 }
