@@ -3,6 +3,7 @@ package org.youcode.devsync.controller;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.youcode.devsync.model.User;
 import org.youcode.devsync.model.UserRole;
 import org.youcode.devsync.service.UserService;
@@ -22,17 +23,50 @@ public class UserController {
     }
 
     public void index(HttpServletRequest request, HttpServletResponse response) {
-        List<User> users = userService.getAllUsers();
-        request.setAttribute("users", users);
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("users/index.jsp");
-        try{
-            requestDispatcher.forward(request, response);
-        } catch (Exception e) {
-            e.printStackTrace();
+        // Check session and role
+        HttpSession session = request.getSession();
+        if (session != null && session.getAttribute("user") != null) {
+            try {
+                User user = (User) session.getAttribute("user");
+                if (user.getRole() == UserRole.manager) {
+                    List<User> users = userService.getAllUsers();
+                    request.setAttribute("users", users);
+                    RequestDispatcher requestDispatcher = request.getRequestDispatcher("users/index.jsp");
+                    try {
+                        requestDispatcher.forward(request, response);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    response.sendRedirect(request.getContextPath());
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            try {
+                response.sendRedirect(request.getContextPath() + "/login");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
     public void create(HttpServletRequest request, HttpServletResponse response) {
+        // session management
+        HttpSession session = request.getSession();
+        if (session != null && session.getAttribute("user") != null) {
+            try {
+                User user = (User) session.getAttribute("user");
+                if (user.getRole() == UserRole.manager) {
+                    response.sendRedirect(request.getContextPath() + "/users");
+                } else {
+                    response.sendRedirect(request.getContextPath() + "/tasks");
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("auth/register.jsp");
         try {
             requestDispatcher.forward(request, response);
@@ -56,6 +90,8 @@ public class UserController {
         registeredUser.ifPresentOrElse(
                 user -> {
                     try {
+                        // session management
+                        request.getSession().setAttribute("user", user);
                         if (user.getRole() == UserRole.manager) {
                             response.sendRedirect(request.getContextPath() + "/users");
                         } else {
@@ -171,6 +207,8 @@ public class UserController {
                 u -> {
                     if (u.getPassword().equals(StringUtil.hashPassword(password))) {
                         try {
+                            // session management
+                            request.getSession().setAttribute("user", u);
                             if (u.getRole() == UserRole.manager) {
                                 response.sendRedirect(request.getContextPath() + "/users");
                             } else {
@@ -179,9 +217,9 @@ public class UserController {
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-                    } else {
+                    }else{
                         try {
-                            response.sendRedirect(request.getContextPath() + "/login?error=invalid-credentials");
+                            response.sendRedirect(request.getContextPath() + "/users?action=login&error=invalid-credentials");
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -189,7 +227,7 @@ public class UserController {
                 },
                 () -> {
                     try {
-                        response.sendRedirect(request.getContextPath() + "/login?error=invalid-credentials");
+                        response.sendRedirect(request.getContextPath() + "/users?action=login&error=invalid-credentials");
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -198,10 +236,36 @@ public class UserController {
     }
 
     public void loginForm(HttpServletRequest request, HttpServletResponse response) {
+        // Check session
+        HttpSession session = request.getSession();
+        if (session != null && session.getAttribute("user") != null) {
+            try {
+                User user = (User) session.getAttribute("user");
+                if (user.getRole() == UserRole.manager) {
+                    response.sendRedirect(request.getContextPath() + "/users");
+                } else {
+                    response.sendRedirect(request.getContextPath() + "/tasks");
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         RequestDispatcher view = request.getRequestDispatcher("auth/login.jsp");
         try {
             view.forward(request, response);
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void logout(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession(false); // Fetch session if it exists
+        if (session != null) {
+            session.invalidate(); // Invalidate the session
+        }
+        try {
+            response.sendRedirect(request.getContextPath() + "/");
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
