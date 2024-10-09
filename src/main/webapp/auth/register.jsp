@@ -21,7 +21,7 @@
                 <h1 class="text-center text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                     Create an account
                 </h1>
-                <form class="space-y-4 md:space-y-6" action="${pageContext.request.contextPath}/register" method="post">
+                <form class="space-y-4 md:space-y-6" action="${pageContext.request.contextPath}/users?action=register" method="post">
                     <div>
                         <label for="username" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your Username</label>
                         <input type="text" name="username" id="username" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" required="">
@@ -56,7 +56,7 @@
                     </button>
 
                     <p class="text-center text-sm font-light text-gray-500 dark:text-gray-400">
-                        Already have an account? <a href="${pageContext.request.contextPath}/login" class="font-medium text-primary-600 hover:underline dark:text-primary-500">Login here</a>
+                        Already have an account? <a href="${pageContext.request.contextPath}/users?action=login" class="font-medium text-primary-600 hover:underline dark:text-primary-500">Login here</a>
                     </p>
                 </form>
             </div>

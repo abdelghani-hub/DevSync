@@ -7,18 +7,13 @@
         <class>org.youcode.devsync.model.User</class>
         <class>org.youcode.devsync.model.Task</class>
         <class>org.youcode.devsync.model.Tag</class>
-        <!-- Add all other entity classes here -->
         <properties>
-            <!-- Database connection properties -->
             <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>
             <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/devsync_db"/>
             <property name="jakarta.persistence.jdbc.user" value="GreenPulse"/>
             <property name="jakarta.persistence.jdbc.password" value=""/>
-
-            <!-- Hibernate properties -->
             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
-
-            <!-- Logging and formatting options -->
+            <property name="jakarta.persistence.schema-generation.database.action" value="create"/>
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.format_sql" value="true"/>
             <property name="hibernate.use_sql_comments" value="true"/>

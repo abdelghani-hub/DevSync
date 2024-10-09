@@ -12,7 +12,7 @@
 <!-- -->
 <jsp:include page="../layouts/header.jsp"/>
 
-<div class="container dark:bg-gray-900 min-h-full">
+<div class="container dark:bg-gray-900 h-screen">
 
     <section class="bg-gray-50 dark:bg-gray-900 py-3 sm:py-5">
         <div class="px-4 mx-auto lg:px-12">
@@ -65,16 +65,16 @@
                             </span>
                                     </td>
                                     <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        <div class="flex items-center justify-center">
+                                        <div class="flex">
                                             <c:if test="${user.role == 'user'}">
-                                        <span class="bg-violet-100 text-green-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-green-900 dark:text-green-300">
-                                                ${user.role}
-                                        </span>
+                                                <span class="bg-violet-100 text-green-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-green-900 dark:text-green-300">
+                                                        ${user.role}
+                                                </span>
                                             </c:if>
                                             <c:if test="${user.role == 'manager'}">
-                                        <span class="bg-cyan-100 text-cyan-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-cyan-900 dark:text-yellow-300">
-                                                ${user.role}
-                                        </span>
+                                                <span class="bg-cyan-100 text-cyan-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-cyan-900 dark:text-yellow-300">
+                                                        ${user.role}
+                                                </span>
                                             </c:if>
                                         </div>
                                     </td>
@@ -83,12 +83,12 @@
                                     <td class="flex items-center x-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                             <%-- Edit --%>
                                         <div>
-                                            <a href="${pageContext.request.contextPath}/users/edit/${user.id}"
+                                            <a href="${pageContext.request.contextPath}/users?action=edit&id=${user.id}"
                                                class="text-blue-700 hover:text-white border border-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-500 dark:focus:ring-green-800">Edit</a>
                                         </div>
 
                                             <%-- Delete --%>
-                                        <form action="${pageContext.request.contextPath}/users/delete"
+                                        <form action="${pageContext.request.contextPath}/users?action=delete"
                                               method="post"
                                               class="flex p-0 m-0">
                                             <input type="hidden" name="id" value="${user.id}">

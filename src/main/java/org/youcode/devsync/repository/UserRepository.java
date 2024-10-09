@@ -1,10 +1,9 @@
 package org.youcode.devsync.repository;
 
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
 import org.youcode.devsync.interfaces.RepositoryInterface;
 import org.youcode.devsync.model.User;
+import org.youcode.devsync.util.EntityManagerProvider;
 import org.youcode.devsync.util.StringUtil;
 
 import java.util.List;
@@ -12,14 +11,8 @@ import java.util.Optional;
 
 public class UserRepository implements RepositoryInterface<User> {
 
-    private final EntityManagerFactory entityManagerFactory;
-
-    public UserRepository() {
-        entityManagerFactory = Persistence.createEntityManagerFactory("devsync");
-    }
-
     private EntityManager getEntityManager() {
-        return entityManagerFactory.createEntityManager();
+        return EntityManagerProvider.getEntityManagerFactory().createEntityManager();
     }
 
     @Override
@@ -32,7 +25,8 @@ public class UserRepository implements RepositoryInterface<User> {
             return Optional.ofNullable(user);
         } catch (Exception e) {
             e.printStackTrace();
-            entityManager.getTransaction().rollback();
+            if (entityManager.getTransaction().isActive())
+                entityManager.getTransaction().rollback();
             return Optional.empty();
         } finally {
             entityManager.close();
@@ -49,7 +43,8 @@ public class UserRepository implements RepositoryInterface<User> {
             return users;
         } catch (Exception e) {
             e.printStackTrace();
-            entityManager.getTransaction().rollback();
+            if (entityManager.getTransaction().isActive())
+                entityManager.getTransaction().rollback();
             return null;
         } finally {
             entityManager.close();
@@ -68,7 +63,8 @@ public class UserRepository implements RepositoryInterface<User> {
             return Optional.of(user);
         } catch (Exception e) {
             e.printStackTrace();
-            entityManager.getTransaction().rollback();
+            if (entityManager.getTransaction().isActive())
+                entityManager.getTransaction().rollback();
             return Optional.empty();
         } finally {
             entityManager.close();
@@ -87,7 +83,8 @@ public class UserRepository implements RepositoryInterface<User> {
             return Optional.of(updatedUser);
         } catch (Exception e) {
             e.printStackTrace();
-            entityManager.getTransaction().rollback();
+            if (entityManager.getTransaction().isActive())
+                entityManager.getTransaction().rollback();
             return Optional.empty();
         } finally {
             entityManager.close();
@@ -104,7 +101,8 @@ public class UserRepository implements RepositoryInterface<User> {
             return user;
         } catch (Exception e) {
             e.printStackTrace();
-            entityManager.getTransaction().rollback();
+            if (entityManager.getTransaction().isActive())
+                entityManager.getTransaction().rollback();
             return null;
         } finally {
             entityManager.close();
@@ -122,7 +120,8 @@ public class UserRepository implements RepositoryInterface<User> {
             return Optional.of(user);
         } catch (Exception e) {
             e.printStackTrace();
-            entityManager.getTransaction().rollback();
+            if (entityManager.getTransaction().isActive())
+                entityManager.getTransaction().rollback();
             return Optional.empty();
         } finally {
             entityManager.close();
