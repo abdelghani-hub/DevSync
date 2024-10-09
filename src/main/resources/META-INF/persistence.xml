@@ -5,6 +5,8 @@
              version="3.0">
     <persistence-unit name="devsync">
         <class>org.youcode.devsync.model.User</class>
+        <class>org.youcode.devsync.model.Task</class>
+        <class>org.youcode.devsync.model.Tag</class>
         <properties>
             <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>
             <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/devsync_db"/>
