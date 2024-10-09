@@ -1,34 +1,19 @@
 package org.youcode.devsync.servlet;
 
-import java.io.*;
-
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.*;
-import jakarta.servlet.annotation.*;
+import jakarta.servlet.annotation.WebServlet;
+import org.youcode.devsync.controller.MainController;
 
-@WebServlet(name = "myServlet", value = {"/", "/tasks"})
+@WebServlet(name = "myServlet", value = {"/"})
 public class MyServlet extends HttpServlet {
 
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        if (request.getServletPath().equals("/")) {
-            RequestDispatcher view = request.getRequestDispatcher("index.jsp");
-            try {
-                view.forward(request, response);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else if (request.getServletPath().equals("/tasks")) {
-            // TODO: Implement the logic to get all tasks from the database
-            RequestDispatcher view = request.getRequestDispatcher("tasks/index.jsp");
-            try {
-                view.forward(request, response);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+    MainController mainController;
+    public void init() {
+        mainController = new MainController();
     }
 
-    public void destroy() {
-
+    public void doGet(HttpServletRequest request, HttpServletResponse response) {
+        if(request.getServletPath().equals("/"))
+            mainController.index(request, response);
     }
 }

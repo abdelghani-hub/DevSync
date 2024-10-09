@@ -3,9 +3,13 @@ package org.youcode.devsync.controller;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.youcode.devsync.model.Tag;
+import org.youcode.devsync.model.User;
+import org.youcode.devsync.model.UserRole;
 import org.youcode.devsync.service.TagService;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,13 +21,32 @@ public class TagController {
     }
 
     public void index(HttpServletRequest request, HttpServletResponse response) {
-        List<Tag> tags = tagService.getAllTags();
-        request.setAttribute("tags", tags);
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("tags/index.jsp");
-        try{
-            requestDispatcher.forward(request, response);
-        } catch (Exception e) {
-            e.printStackTrace();
+        // Check session and role
+        HttpSession session = request.getSession();
+        if (session != null && session.getAttribute("user") != null) {
+            try {
+                User user = (User) session.getAttribute("user");
+                if (user.getRole() == UserRole.manager) {
+                    List<Tag> tags = tagService.getAllTags();
+                    request.setAttribute("tags", tags);
+                    RequestDispatcher requestDispatcher = request.getRequestDispatcher("tags/index.jsp");
+                    try{
+                        requestDispatcher.forward(request, response);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    response.sendRedirect(request.getContextPath());
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            try {
+                response.sendRedirect(request.getContextPath() + "/login");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 

@@ -30,6 +30,10 @@ public class UserServlet extends HttpServlet {
         else if (action.equals("login")) {
             userController.loginForm(request, response);
         }
+        // Logout
+        else if (action.equals("logout")) {
+            userController.logout(request, response);
+        }
         // Edit User
         else if (action.equals("edit")) {
             userController.edit(request, response);
@@ -49,6 +53,10 @@ public class UserServlet extends HttpServlet {
             // Login
             case "login":
                 userController.login(request, response);
+                break;
+            // Logout
+            case "logout":
+                userController.logout(request, response);
                 break;
             // Update User
             case "update":
