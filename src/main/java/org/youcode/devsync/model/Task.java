@@ -1,6 +1,5 @@
 package org.youcode.devsync.model;
 
-import jakarta.enterprise.inject.Default;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -26,6 +25,9 @@ public class Task {
     @Enumerated(EnumType.STRING)
     private TaskStatus status;
 
+    @Column(name = "start_date", nullable = false)
+    private LocalDate startDate;
+
     @Column(name = "deadline")
     private LocalDate deadline;
 
@@ -49,10 +51,11 @@ public class Task {
     public Task() {
     }
 
-    public Task(String title, String description, TaskStatus status, LocalDate deadline, Boolean isTokenModifiable, User assignedTo, User createdBy) {
+    public Task(String title, String description, TaskStatus status, LocalDate startDate,LocalDate deadline, Boolean isTokenModifiable, User assignedTo, User createdBy) {
         this.title = title;
         this.description = description;
         this.status = status;
+        this.startDate = startDate;
         this.deadline = deadline;
         this.isTokenModifiable = isTokenModifiable;
         this.assignedTo = assignedTo;
@@ -90,6 +93,14 @@ public class Task {
 
     public void setStatus(TaskStatus status) {
         this.status = status;
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
     }
 
     public LocalDate getDeadline() {
@@ -132,12 +143,7 @@ public class Task {
         this.createdAt = createdAt;
     }
 
-    @ManyToMany(
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-            }
-    )
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "task_tags",
             joinColumns = @JoinColumn(name = "task_id"),
@@ -163,4 +169,9 @@ public class Task {
         if (tags.remove(tag))
             tag.getTasks().remove(this);
     }
+
+    public void setTags(List<Tag> tags) {
+        this.tags = new HashSet<>(tags);
+    }
+
 }
