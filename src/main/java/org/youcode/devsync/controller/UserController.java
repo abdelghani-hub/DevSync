@@ -45,7 +45,7 @@ public class UserController {
             }
         } else {
             try {
-                response.sendRedirect(request.getContextPath() + "/login");
+                response.sendRedirect(request.getContextPath() + "/users?action=login");
             } catch (IOException e) {
                 e.printStackTrace();
             }
