@@ -79,7 +79,8 @@ CREATE TABLE public.tasks (
     status character varying(255) NOT NULL,
     title character varying(255) NOT NULL,
     assigned_to bigint,
-    created_by bigint
+    created_by bigint,
+    start_date date
 );
 
 
