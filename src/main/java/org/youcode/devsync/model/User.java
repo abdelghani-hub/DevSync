@@ -28,9 +28,20 @@ public class User {
     @Column(name = "last_name")
     private String lastName;
 
+    public Token getToken() {
+        return token;
+    }
+
+    public void setToken(Token token) {
+        this.token = token;
+    }
+
     @Column(name = "role", nullable = false)
     @Enumerated(EnumType.STRING)
     private UserRole role;
+
+    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
+    private Token token;
 
     @OneToMany(mappedBy = "requester", fetch = FetchType.LAZY)
     private Set<Request> requests = new HashSet<>();

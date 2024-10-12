@@ -4,22 +4,27 @@ import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import org.youcode.devsync.model.Token;
 import org.youcode.devsync.model.User;
 import org.youcode.devsync.model.UserRole;
+import org.youcode.devsync.service.TokenService;
 import org.youcode.devsync.service.UserService;
 import org.youcode.devsync.util.StringUtil;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 public class UserController {
 
     private final UserService userService;
+    private final TokenService tokenService;
 
     public UserController() {
         userService = new UserService();
+        tokenService = new TokenService();
     }
 
     public void index(HttpServletRequest request, HttpServletResponse response) {
@@ -90,7 +95,9 @@ public class UserController {
         registeredUser.ifPresentOrElse(
                 user -> {
                     try {
-                        // session management
+                        // Token Initialization
+                        Token token = tokenService.createToken(new Token(user, 2, 1, LocalDateTime.now()));
+                        user.setToken(token);
                         request.getSession().setAttribute("user", user);
                         if (user.getRole() == UserRole.manager) {
                             response.sendRedirect(request.getContextPath() + "/users");
