@@ -3,9 +3,7 @@ package org.youcode.devsync.model;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "users")
@@ -34,14 +32,8 @@ public class User {
     @Enumerated(EnumType.STRING)
     private UserRole role;
 
-    @Column(name = "replacement_tokens", nullable = false, columnDefinition = "integer default 2")
-    private Integer replacementTokens;
-
-    @Column(name = "deletion_tokens", nullable = false, columnDefinition = "integer default 1")
-    private Integer deletionTokens;
-
-    @Column(name = "last_token_refresh_date", nullable = false, columnDefinition = "date default current_date")
-    private LocalDate lastTokenRefreshDate;
+    @OneToMany(mappedBy = "requester", fetch = FetchType.LAZY)
+    private Set<Request> requests = new HashSet<>();
 
     public User() {
     }
@@ -60,9 +52,6 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.role = role;
-        this.replacementTokens = 2;
-        this.deletionTokens = 1;
-        this.lastTokenRefreshDate = LocalDate.now();
     }
 
     public void setId(Long id) {
@@ -121,52 +110,6 @@ public class User {
         this.role = role;
     }
 
-    public Integer getReplacementTokens() {
-        return replacementTokens;
-    }
-
-    public void setReplacementTokens(Integer replacementTokens) {
-        this.replacementTokens = replacementTokens;
-    }
-
-    public Integer getDeletionTokens() {
-        return deletionTokens;
-    }
-
-    public void setDeletionTokens(Integer deletionTokens) {
-        this.deletionTokens = deletionTokens;
-    }
-
-    public LocalDate getLastTokenRefreshDate() {
-        return lastTokenRefreshDate;
-    }
-
-    public void setLastTokenRefreshDate(LocalDate date) {
-        this.lastTokenRefreshDate = date;
-    }
-
-    public void refreshTokens() {
-        this.replacementTokens = 2;
-        this.deletionTokens = 1;
-        this.lastTokenRefreshDate = LocalDate.now();
-    }
-
-    public void useReplacementToken() {
-        this.replacementTokens--;
-    }
-
-    public void useDeletionToken() {
-        this.deletionTokens--;
-    }
-
-    public boolean hasReplacementToken() {
-        return this.replacementTokens > 0;
-    }
-
-    public boolean hasDeletionToken() {
-        return this.deletionTokens > 0;
-    }
-
     @OneToMany(mappedBy = "assignedTo")
     private Set<Task> assignedTasks = new HashSet<>();
 
@@ -195,6 +138,22 @@ public class User {
 
     public void removeCreatedTask(Task task) {
         createdTasks.remove(task);
+    }
+
+    public List<Request> getRequests() {
+        return new ArrayList<>(requests);
+    }
+
+    public void setRequests(Set<Request> requests) {
+        this.requests = requests;
+    }
+
+    public void addRequest(Request request) {
+        requests.add(request);
+    }
+
+    public void removeRequest(Request request) {
+        requests.remove(request);
     }
 
     @Override

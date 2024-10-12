@@ -48,6 +48,22 @@ public class Task {
     @Column(name = "created_at", nullable = false)
     private LocalDate createdAt;
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "task_tags",
+            joinColumns = @JoinColumn(name = "task_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id"),
+            uniqueConstraints = {
+                    @UniqueConstraint(
+                            columnNames = {"task_id", "tag_id"}
+                    )
+            }
+    )
+    private Set<Tag> tags = new HashSet<>();
+
+    @OneToMany(mappedBy = "task", fetch = FetchType.LAZY)
+    private Set<Request> requests = new HashSet<>();
+
     public Task() {
     }
 
@@ -143,19 +159,6 @@ public class Task {
         this.createdAt = createdAt;
     }
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "task_tags",
-            joinColumns = @JoinColumn(name = "task_id"),
-            inverseJoinColumns = @JoinColumn(name = "tag_id"),
-            uniqueConstraints = {
-                    @UniqueConstraint(
-                            columnNames = {"task_id", "tag_id"}
-                    )
-            }
-    )
-    private Set<Tag> tags = new HashSet<>();
-
     public List<Tag> getTags() {
         return new ArrayList<>(tags);
     }
@@ -174,4 +177,11 @@ public class Task {
         this.tags = new HashSet<>(tags);
     }
 
+    public List<Request> getRequests() {
+        return new ArrayList<>(requests);
+    }
+
+    public void setRequests(Set<Request> requests) {
+        this.requests = requests;
+    }
 }
