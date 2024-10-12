@@ -109,18 +109,52 @@ ALTER SEQUENCE public.tasks_id_seq OWNED BY public.tasks.id;
 
 
 --
+-- Name: user_tokens; Type: TABLE; Schema: public; Owner: GreenPulse
+--
+
+CREATE TABLE public.user_tokens (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    modification_tokens integer,
+    deletion_tokens integer,
+    last_reset_date timestamp without time zone
+);
+
+
+ALTER TABLE public.user_tokens OWNER TO "GreenPulse";
+
+--
+-- Name: user_tokens_id_seq; Type: SEQUENCE; Schema: public; Owner: GreenPulse
+--
+
+CREATE SEQUENCE public.user_tokens_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.user_tokens_id_seq OWNER TO "GreenPulse";
+
+--
+-- Name: user_tokens_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: GreenPulse
+--
+
+ALTER SEQUENCE public.user_tokens_id_seq OWNED BY public.user_tokens.id;
+
+
+--
 -- Name: users; Type: TABLE; Schema: public; Owner: GreenPulse
 --
 
 CREATE TABLE public.users (
     id integer NOT NULL,
-    deletion_tokens integer NOT NULL,
     email character varying(255) NOT NULL,
     first_name character varying(255),
     last_name character varying(255),
-    last_token_refresh_date date,
     password character varying(255) NOT NULL,
-    replacement_tokens integer NOT NULL,
     role character varying(255) NOT NULL,
     username character varying(255) NOT NULL
 );
@@ -162,6 +196,13 @@ ALTER TABLE ONLY public.tags ALTER COLUMN id SET DEFAULT nextval('public.tags_id
 --
 
 ALTER TABLE ONLY public.tasks ALTER COLUMN id SET DEFAULT nextval('public.tasks_id_seq'::regclass);
+
+
+--
+-- Name: user_tokens id; Type: DEFAULT; Schema: public; Owner: GreenPulse
+--
+
+ALTER TABLE ONLY public.user_tokens ALTER COLUMN id SET DEFAULT nextval('public.user_tokens_id_seq'::regclass);
 
 
 --
@@ -209,6 +250,14 @@ ALTER TABLE ONLY public.tasks
 
 ALTER TABLE ONLY public.task_tags
     ADD CONSTRAINT unq_task_tags_0 UNIQUE (task_id, tag_id);
+
+
+--
+-- Name: user_tokens user_tokens_pkey; Type: CONSTRAINT; Schema: public; Owner: GreenPulse
+--
+
+ALTER TABLE ONLY public.user_tokens
+    ADD CONSTRAINT user_tokens_pkey PRIMARY KEY (id);
 
 
 --
@@ -265,6 +314,14 @@ ALTER TABLE ONLY public.tasks
 
 ALTER TABLE ONLY public.tasks
     ADD CONSTRAINT fk_tasks_created_by FOREIGN KEY (created_by) REFERENCES public.users(id);
+
+
+--
+-- Name: user_tokens fk_user_tokens_user_id; Type: FK CONSTRAINT; Schema: public; Owner: GreenPulse
+--
+
+ALTER TABLE ONLY public.user_tokens
+    ADD CONSTRAINT fk_user_tokens_user_id FOREIGN KEY (user_id) REFERENCES public.users(id);
 
 
 --

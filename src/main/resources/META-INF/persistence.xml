@@ -7,12 +7,13 @@
         <class>org.youcode.devsync.model.User</class>
         <class>org.youcode.devsync.model.Task</class>
         <class>org.youcode.devsync.model.Tag</class>
+        <class>org.youcode.devsync.model.Token</class>
         <properties>
             <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>
             <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/devsync_db"/>
             <property name="jakarta.persistence.jdbc.user" value="GreenPulse"/>
             <property name="jakarta.persistence.jdbc.password" value=""/>
-            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL95Dialect"/>
             <property name="hibernate.hbm2ddl.auto" value="update"/>
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.format_sql" value="true"/>
