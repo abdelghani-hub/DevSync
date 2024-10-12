@@ -267,7 +267,7 @@ public class TaskController {
                 )
                 .collect(Collectors.toCollection(ArrayList::new));
 
-        Boolean isTokenModifiable = false;
+        Boolean isTokenModifiable = true;
         Task task = new Task(title, description, status, startDate, deadline, isTokenModifiable, assignedTo, createdBy);
         task.setTags(tags);
         return task;

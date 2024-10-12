@@ -66,6 +66,10 @@ public class TaskService {
             && !newTask.getAssignedTo().equals(newTask.getCreatedBy())) {
             return "Task should start at least after 3 days.";
         }
+        // Rule 5 : Task deadline should be after the start date
+        if (newTask.getStartDate().isAfter(newTask.getDeadline())) {
+            return "Task deadline should be after the start date.";
+        }
         return null;
     }
 }
