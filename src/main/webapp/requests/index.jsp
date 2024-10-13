@@ -84,6 +84,11 @@
                                                         Accepted
                                                 </span>
                                             </c:if>
+                                            <c:if test="${request.status == 'DENIED'}">
+                                                <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-gray-300 dark:text-gray-600">
+                                                        Denied
+                                                </span>
+                                            </c:if>
                                         </div>
                                     </td>
 

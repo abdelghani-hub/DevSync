@@ -73,4 +73,8 @@ public class Token {
     public void setLastResetDate(LocalDateTime lastResetDate) {
         this.lastResetDate = lastResetDate;
     }
+
+    public void duplicateModificationTokens() {
+        this.modificationTokens *= 2;
+    }
 }
