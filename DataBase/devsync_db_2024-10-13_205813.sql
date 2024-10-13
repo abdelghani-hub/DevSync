@@ -21,6 +21,44 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
+-- Name: requests; Type: TABLE; Schema: public; Owner: GreenPulse
+--
+
+CREATE TABLE public.requests (
+    id bigint NOT NULL,
+    user_id bigint NOT NULL,
+    task_id bigint NOT NULL,
+    type character varying(50) NOT NULL,
+    status character varying(10) DEFAULT 'PENDING'::character varying,
+    requested_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+    responded_at timestamp without time zone
+);
+
+
+ALTER TABLE public.requests OWNER TO "GreenPulse";
+
+--
+-- Name: requests_id_seq; Type: SEQUENCE; Schema: public; Owner: GreenPulse
+--
+
+CREATE SEQUENCE public.requests_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.requests_id_seq OWNER TO "GreenPulse";
+
+--
+-- Name: requests_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: GreenPulse
+--
+
+ALTER SEQUENCE public.requests_id_seq OWNED BY public.requests.id;
+
+
+--
 -- Name: tags; Type: TABLE; Schema: public; Owner: GreenPulse
 --
 
@@ -185,6 +223,13 @@ ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 
 
 --
+-- Name: requests id; Type: DEFAULT; Schema: public; Owner: GreenPulse
+--
+
+ALTER TABLE ONLY public.requests ALTER COLUMN id SET DEFAULT nextval('public.requests_id_seq'::regclass);
+
+
+--
 -- Name: tags id; Type: DEFAULT; Schema: public; Owner: GreenPulse
 --
 
@@ -210,6 +255,14 @@ ALTER TABLE ONLY public.user_tokens ALTER COLUMN id SET DEFAULT nextval('public.
 --
 
 ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
+
+
+--
+-- Name: requests requests_pkey; Type: CONSTRAINT; Schema: public; Owner: GreenPulse
+--
+
+ALTER TABLE ONLY public.requests
+    ADD CONSTRAINT requests_pkey PRIMARY KEY (id);
 
 
 --
@@ -285,11 +338,41 @@ ALTER TABLE ONLY public.users
 
 
 --
+-- Name: idx_request_task; Type: INDEX; Schema: public; Owner: GreenPulse
+--
+
+CREATE INDEX idx_request_task ON public.requests USING btree (task_id);
+
+
+--
+-- Name: idx_request_user; Type: INDEX; Schema: public; Owner: GreenPulse
+--
+
+CREATE INDEX idx_request_user ON public.requests USING btree (user_id);
+
+
+--
+-- Name: requests fk_request_task; Type: FK CONSTRAINT; Schema: public; Owner: GreenPulse
+--
+
+ALTER TABLE ONLY public.requests
+    ADD CONSTRAINT fk_request_task FOREIGN KEY (task_id) REFERENCES public.tasks(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: requests fk_request_user; Type: FK CONSTRAINT; Schema: public; Owner: GreenPulse
+--
+
+ALTER TABLE ONLY public.requests
+    ADD CONSTRAINT fk_request_user FOREIGN KEY (user_id) REFERENCES public.users(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
 -- Name: task_tags fk_task_tags_tag_id; Type: FK CONSTRAINT; Schema: public; Owner: GreenPulse
 --
 
 ALTER TABLE ONLY public.task_tags
-    ADD CONSTRAINT fk_task_tags_tag_id FOREIGN KEY (tag_id) REFERENCES public.tags(id);
+    ADD CONSTRAINT fk_task_tags_tag_id FOREIGN KEY (tag_id) REFERENCES public.tags(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
@@ -297,7 +380,7 @@ ALTER TABLE ONLY public.task_tags
 --
 
 ALTER TABLE ONLY public.task_tags
-    ADD CONSTRAINT fk_task_tags_task_id FOREIGN KEY (task_id) REFERENCES public.tasks(id);
+    ADD CONSTRAINT fk_task_tags_task_id FOREIGN KEY (task_id) REFERENCES public.tasks(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
@@ -305,7 +388,7 @@ ALTER TABLE ONLY public.task_tags
 --
 
 ALTER TABLE ONLY public.tasks
-    ADD CONSTRAINT fk_tasks_assigned_to FOREIGN KEY (assigned_to) REFERENCES public.users(id);
+    ADD CONSTRAINT fk_tasks_assigned_to FOREIGN KEY (assigned_to) REFERENCES public.users(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
@@ -313,7 +396,7 @@ ALTER TABLE ONLY public.tasks
 --
 
 ALTER TABLE ONLY public.tasks
-    ADD CONSTRAINT fk_tasks_created_by FOREIGN KEY (created_by) REFERENCES public.users(id);
+    ADD CONSTRAINT fk_tasks_created_by FOREIGN KEY (created_by) REFERENCES public.users(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
@@ -321,7 +404,7 @@ ALTER TABLE ONLY public.tasks
 --
 
 ALTER TABLE ONLY public.user_tokens
-    ADD CONSTRAINT fk_user_tokens_user_id FOREIGN KEY (user_id) REFERENCES public.users(id);
+    ADD CONSTRAINT fk_user_tokens_user_id FOREIGN KEY (user_id) REFERENCES public.users(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
