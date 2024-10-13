@@ -49,7 +49,8 @@
                         </c:if>
                         <c:if test="${not empty tasks}">
                             <c:forEach var="task" items="${tasks}">
-                                <tr class="border-b dark:border-gray-600">
+
+                                <tr class="relative border-b dark:border-gray-600">
                                     <td class="w-4 px-4 py-3">
                                         <c:if test="${task.status == 'pending' }">
                                             <form action="${pageContext.request.contextPath}/tasks?action=done"
@@ -75,9 +76,13 @@
                                         </c:if>
                                     </td>
                                         <%-- Title --%>
-                                    <td
-                                            class="px-4 py-2">
-                                            ${task.title}
+                                    <td class="px-4 py-2">
+                                        <c:if test="${task.createdBy.equals(task.assignedTo)}">
+                                            <div class="absolute top-1 right-1 bg-purple-100 text-purple-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-purple-900 dark:text-purple-300">
+                                                EXTRA
+                                            </div>
+                                        </c:if>
+                                        ${task.title}
                                     </td>
                                         <%-- Desc --%>
                                     <td class="px-4 py-2">
@@ -102,7 +107,7 @@
                                             </c:if>
                                             <c:if test="${task.status == 'pending'}">
                                                 <span class="bg-cyan-100 text-cyan-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-cyan-900 dark:text-yellow-300">
-                                                        Pending
+                                                        Pending..
                                                 </span>
                                             </c:if>
                                             <c:if test="${task.status == 'done'}">
@@ -110,27 +115,33 @@
                                                         Done
                                                 </span>
                                             </c:if>
+                                            <c:if test="${task.status == 'overdue'}">
+                                                <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-gray-100 dark:text-gray-500">
+                                                        Overdue!
+                                                </span>
+                                            </c:if>
                                         </div>
                                     </td>
                                     <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">${task.assignedTo.username}</td>
                                     <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">${task.startDate}</td>
                                     <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">${task.deadline}</td>
-                                    <td class="flex items-center justify-center x-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    <td class="flex items-center justify-center x-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white" style="min-width: 300px">
                                             <%-- Actions --%>
                                         <c:if test="${not task.createdBy.equals(task.assignedTo) and user.role != 'manager'}">
-                                            <form action="${pageContext.request.contextPath}/tasks?action=request&request=replace"
+                                            <form action="${pageContext.request.contextPath}/requests?action=save&type=MODIFICATION"
                                                   method="post"
                                                   class="flex p-0 m-0">
-                                                <input type="hidden" name="id" value="${task.id}">
+                                                <input type="hidden" name="task_id" value="${task.id}">
+
                                                 <button type="submit" value="Request Replace"
                                                         class="delete-btn text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800">
-                                                    Request Replace
+                                                    Request Modify
                                                 </button>
                                             </form>
-                                            <form action="${pageContext.request.contextPath}/tasks?action=request&request=delete"
+                                            <form action="${pageContext.request.contextPath}/requests?action=save&type=DELETION"
                                                   method="post"
                                                   class="flex p-0 m-0">
-                                                <input type="hidden" name="id" value="${task.id}">
+                                                <input type="hidden" name="task_id" value="${task.id}">
                                                 <button type="submit" value="Request Delete"
                                                         class="delete-btn text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900">
                                                     Request Delete

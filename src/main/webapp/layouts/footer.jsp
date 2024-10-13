@@ -5,16 +5,16 @@
     </span>
         <ul class="flex flex-wrap items-center mt-3 text-sm font-medium text-gray-500 dark:text-gray-400 sm:mt-0">
             <li>
-                <a href="#" class="hover:underline me-4 md:me-6">About</a>
+                <a href="${pageContext.request.contextPath}" class="hover:underline me-4 md:me-6">About</a>
             </li>
             <li>
-                <a href="#" class="hover:underline me-4 md:me-6">Privacy Policy</a>
+                <a href="${pageContext.request.contextPath}" class="hover:underline me-4 md:me-6">Privacy Policy</a>
             </li>
             <li>
-                <a href="#" class="hover:underline me-4 md:me-6">Licensing</a>
+                <a href="${pageContext.request.contextPath}" class="hover:underline me-4 md:me-6">Licensing</a>
             </li>
             <li>
-                <a href="#" class="hover:underline">Contact</a>
+                <a href="${pageContext.request.contextPath}" class="hover:underline">Contact</a>
             </li>
         </ul>
     </div>
@@ -29,7 +29,7 @@
         return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
     }
 
-    // Check if there's an error parameter in the URL
+    // Check if there's an error
     var errorMessage = getUrlParameter('error');
     if (errorMessage) {
         Swal.fire({
@@ -40,9 +40,33 @@
             confirmButtonColor: '#3085d6'
         });
     }
-    // remove the error parameter from the URL but keep the rest of the parameters
+    // Check if there's an info
+    var infoMessage = getUrlParameter('info');
+    if (infoMessage) {
+        Swal.fire({
+            icon: 'info',
+            title: 'Info',
+            position: 'top-end',
+            toast: true,
+            timer: 4000,
+        });
+    }
+    // Check if there's a success
+    var successMessage = getUrlParameter('success');
+    if (successMessage) {
+        Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: successMessage,
+            position: 'top-end',
+            toast: true,
+            timer: 4000,
+        });
+    }
+    // remove the error, info and success parameter from the URL but keep the rest of the parameters
     var currentUrl = new URL(window.location.href);
+    currentUrl.searchParams.delete('success');
+    currentUrl.searchParams.delete('info');
     currentUrl.searchParams.delete('error');
     window.history.replaceState({}, document.title, currentUrl.toString());
 </script>
-

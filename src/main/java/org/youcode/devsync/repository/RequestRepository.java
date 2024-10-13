@@ -2,27 +2,26 @@ package org.youcode.devsync.repository;
 
 import jakarta.persistence.EntityManager;
 import org.youcode.devsync.interfaces.RepositoryInterface;
-import org.youcode.devsync.model.User;
+import org.youcode.devsync.model.Request;
 import org.youcode.devsync.util.EntityManagerProvider;
-import org.youcode.devsync.util.StringUtil;
 
 import java.util.List;
 import java.util.Optional;
 
-public class UserRepository implements RepositoryInterface<User> {
+public class RequestRepository implements RepositoryInterface<Request> {
 
     private EntityManager getEntityManager() {
         return EntityManagerProvider.getEntityManagerFactory().createEntityManager();
     }
 
     @Override
-    public Optional<User> findById(Long id) {
+    public Optional<Request> findById(Long id) {
         EntityManager entityManager = getEntityManager();
         try {
             entityManager.getTransaction().begin();
-            User user = entityManager.find(User.class, id);
+            Request request = entityManager.find(Request.class, id);
             entityManager.getTransaction().commit();
-            return Optional.ofNullable(user);
+            return Optional.ofNullable(request);
         } catch (Exception e) {
             e.printStackTrace();
             if (entityManager.getTransaction().isActive())
@@ -34,13 +33,13 @@ public class UserRepository implements RepositoryInterface<User> {
     }
 
     @Override
-    public List<User> findAll() {
+    public List<Request> findAll() {
         EntityManager entityManager = getEntityManager();
         try {
             entityManager.getTransaction().begin();
-            List<User> users = entityManager.createQuery("SELECT u FROM User u", User.class).getResultList();
+            List<Request> requests = entityManager.createQuery("SELECT r FROM Request r", Request.class).getResultList();
             entityManager.getTransaction().commit();
-            return users;
+            return requests;
         } catch (Exception e) {
             e.printStackTrace();
             if (entityManager.getTransaction().isActive())
@@ -52,15 +51,13 @@ public class UserRepository implements RepositoryInterface<User> {
     }
 
     @Override
-    public Optional<User> create(User user) {
+    public Optional<Request> create(Request request) {
         EntityManager entityManager = getEntityManager();
-        // Hash password
-        user.setPassword(StringUtil.hashPassword(user.getPassword()));
         try {
             entityManager.getTransaction().begin();
-            entityManager.persist(user);
+            entityManager.persist(request);
             entityManager.getTransaction().commit();
-            return Optional.of(user);
+            return Optional.of(request);
         } catch (Exception e) {
             e.printStackTrace();
             if (entityManager.getTransaction().isActive())
@@ -72,13 +69,13 @@ public class UserRepository implements RepositoryInterface<User> {
     }
 
     @Override
-    public Optional<User> update(User user) {
+    public Optional<Request> update(Request request) {
         EntityManager entityManager = getEntityManager();
         try {
             entityManager.getTransaction().begin();
-            User updatedUser = entityManager.merge(user);
+            Request updatedRequest = entityManager.merge(request);
             entityManager.getTransaction().commit();
-            return Optional.of(updatedUser);
+            return Optional.of(updatedRequest);
         } catch (Exception e) {
             e.printStackTrace();
             if (entityManager.getTransaction().isActive())
@@ -90,37 +87,18 @@ public class UserRepository implements RepositoryInterface<User> {
     }
 
     @Override
-    public User delete(User user) {
+    public Request delete(Request request) {
         EntityManager entityManager = getEntityManager();
         try {
             entityManager.getTransaction().begin();
-            entityManager.remove(entityManager.contains(user) ? user : entityManager.merge(user));
+            entityManager.remove(entityManager.contains(request) ? request : entityManager.merge(request));
             entityManager.getTransaction().commit();
-            return user;
+            return request;
         } catch (Exception e) {
             e.printStackTrace();
             if (entityManager.getTransaction().isActive())
                 entityManager.getTransaction().rollback();
             return null;
-        } finally {
-            entityManager.close();
-        }
-    }
-
-    public Optional<User> findByEmail(String email) {
-        EntityManager entityManager = getEntityManager();
-        try {
-            entityManager.getTransaction().begin();
-            User user = entityManager.createQuery("SELECT u FROM User u WHERE u.email = :email", User.class)
-                    .setParameter("email", email)
-                    .getSingleResult();
-            entityManager.getTransaction().commit();
-            return Optional.of(user);
-        } catch (Exception e) {
-            e.printStackTrace();
-            if (entityManager.getTransaction().isActive())
-                entityManager.getTransaction().rollback();
-            return Optional.empty();
         } finally {
             entityManager.close();
         }

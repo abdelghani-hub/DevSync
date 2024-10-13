@@ -40,7 +40,10 @@ public class User {
     @Enumerated(EnumType.STRING)
     private UserRole role;
 
-    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = {
+            CascadeType.REMOVE,
+            CascadeType.MERGE
+    })
     private Token token;
 
     @OneToMany(mappedBy = "requester", fetch = FetchType.LAZY)
@@ -173,5 +176,28 @@ public class User {
         if (obj == null || getClass() != obj.getClass()) return false;
         User user = (User) obj;
         return Objects.equals(id, user.id);
+    }
+
+    public Boolean canRequest(RequestType type) {
+        switch (type) {
+            case MODIFICATION:
+                return token != null && token.getModificationTokens() > 0;
+            case DELETION:
+                return token != null && token.getDeletionTokens() > 0;
+            default:
+                return false;
+        }
+    }
+
+    public User useToken(RequestType type) {
+        switch (type) {
+            case MODIFICATION:
+                token.setModificationTokens(token.getModificationTokens() - 1);
+                break;
+            case DELETION:
+                token.setDeletionTokens(token.getDeletionTokens() - 1);
+                break;
+        }
+        return this;
     }
 }
