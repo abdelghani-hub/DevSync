@@ -11,7 +11,7 @@
 
 <jsp:include page="../layouts/header.jsp"/>
 
-<div class="container dark:bg-gray-900 h-screen">
+<div class="container dark:bg-gray-900 ">
 
     <section class="bg-gray-50 dark:bg-gray-900 py-3 sm:py-5">
         <div class="px-4 mx-auto">

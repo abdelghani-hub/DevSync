@@ -1,4 +1,5 @@
 <%@ page import="org.youcode.devsync.model.User" %>
+<%@ page import="org.youcode.devsync.model.UserRole" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
@@ -14,7 +15,7 @@
 
 <jsp:include page="../layouts/header.jsp"/>
 
-<div class="container dark:bg-gray-900 h-screen">
+<div class="container dark:bg-gray-900">
 
     <section class="bg-gray-50 dark:bg-gray-900 py-3 sm:py-5">
         <div class="px-4 mx-auto">
@@ -37,7 +38,14 @@
                             <th scope="col" class="px-4 py-3">Assigned To</th>
                             <th scope="col" class="px-4 py-3">Start Date</th>
                             <th scope="col" class="px-4 py-3">End Date</th>
-                            <th scope="col" class="px-4 py-3">Actions</th>
+                            <%
+                                if (user.getRole() == UserRole.manager) {
+                            %>
+                            <th scope="col" class="px-4 py-3 text-center">Used Tokens</th>
+                            <%
+                                }
+                            %>
+                            <th scope="col" class="px-4 py-3 text-center">Actions</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -82,7 +90,7 @@
                                                 EXTRA
                                             </div>
                                         </c:if>
-                                        ${task.title}
+                                            ${task.title}
                                     </td>
                                         <%-- Desc --%>
                                     <td class="px-4 py-2">
@@ -122,10 +130,25 @@
                                             </c:if>
                                         </div>
                                     </td>
+
                                     <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">${task.assignedTo.username}</td>
                                     <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">${task.startDate}</td>
                                     <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">${task.deadline}</td>
-                                    <td class="flex items-center justify-center x-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white" style="min-width: 300px">
+
+                                    <%
+                                        if (user.getRole() == UserRole.manager) {
+                                    %>
+                                        <td class="text-center px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                            <span class="bg-pink-500 text-pink-100 text-xs font-medium px-2 py-0.5 rounded">
+                                                    ${task.requests.size()}
+                                            </span>
+                                        </td>
+                                    <%
+                                        }
+                                    %>
+
+                                    <td class="flex items-center justify-center x-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                                        style="min-width: 300px">
                                             <%-- Actions --%>
                                         <c:if test="${not task.createdBy.equals(task.assignedTo) and user.role != 'manager'}">
                                             <form action="${pageContext.request.contextPath}/requests?action=save&type=MODIFICATION"

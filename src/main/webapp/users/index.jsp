@@ -12,7 +12,7 @@
 <!-- -->
 <jsp:include page="../layouts/header.jsp"/>
 
-<div class="container dark:bg-gray-900 h-screen">
+<div class="container dark:bg-gray-900">
 
     <section class="bg-gray-50 dark:bg-gray-900 py-3 sm:py-5">
         <div class="px-4 mx-auto lg:px-12">
@@ -55,8 +55,8 @@
                                     </td>
                                     <th scope="row"
                                         class="flex items-center px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        <img src="https://flowbite.s3.amazonaws.com/blocks/application-ui/products/imac-front-image.png"
-                                             alt="iMac Front Image" class="w-auto h-8 mr-3">
+                                        <img src="assets/images/profile.png"
+                                             alt="profile Image" class="w-auto h-8 mr-3">
                                             ${user.username}
                                     </th>
                                     <td class="px-4 py-2">

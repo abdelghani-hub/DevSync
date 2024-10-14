@@ -53,6 +53,10 @@ public class Tag {
         tasks.remove(task);
     }
 
+    public Integer getUsages() {
+        return tasks.size();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

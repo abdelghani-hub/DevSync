@@ -10,7 +10,7 @@
 <!-- -->
 <jsp:include page="layouts/header.jsp" />
 
-<div class="container w-full h-screen dark:bg-gray-900">
+<div class="container w-full  dark:bg-gray-900">
     <section class="bg-white py-8 antialiased dark:bg-gray-900 md:py-16 p-0 w-full">
         <div class="w-full flex justify-between px-16 py-16 h-full items-center">
             <div class="content-center justify-self-start md:col-span-7 md:text-start">

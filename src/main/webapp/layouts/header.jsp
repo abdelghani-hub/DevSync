@@ -1,11 +1,19 @@
+<%@ page import="org.youcode.devsync.model.User" %>
+<style>
+    section {
+        min-height: 100vh !important;
+    }
+</style>
+<%@ page import="org.youcode.devsync.model.UserRole" %>
+<%@ page import="org.youcode.devsync.model.User" %>
 <%
-    Object user = session.getAttribute("user");
+    User user = (User) session.getAttribute("user");
 %>
 <header>
     <nav class="bg-white border-gray-200 px-4 py-2.5 dark:bg-gray-800">
         <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
             <a href="https://flowbite.com" class="flex items-center">
-                <img src="https://raw.githubusercontent.com/abdelghani1002/Taskify-Frontend/refs/heads/main/src/assets/logo.png" class="mr-3 h-6 sm:h-9" alt="Flowbite Logo"/>
+                <img src="assets/images/logo.png" class="mr-3 h-6 sm:h-9" alt="Flowbite Logo"/>
                 <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">DecSyncApp</span>
             </a>
             <div class="flex items-center lg:order-2">
@@ -16,7 +24,22 @@
                     <div class="flex items-center gap-4">
                         <img class="w-10 h-10 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-2.jpg" alt="">
                         <div class="font-medium dark:text-white">
-                            <div>${user.username}</div>
+                            <div>
+                                ${user.username}
+                                    <span>
+                                        <%
+                                            if (user.getRole() == UserRole.manager) {
+                                        %>
+                                        <span class="bg-purple-500 text-white text-xs font-medium rounded-lg px-2 py-0.5">manager</span>
+                                        <%
+                                            } else {
+                                        %>
+                                        <span class="bg-blue-500 text-white text-xs font-medium rounded-lg px-2 py-0.5">user</span>
+                                        <%
+                                            }
+                                        %>
+                                    </span>
+                            </div>
                             <div class="text-sm text-gray-500 dark:text-gray-400">${user.email}</div>
                         </div>
                     </div>
@@ -51,7 +74,9 @@
                             Home
                         </a>
                     </li>
-                    <c:if test="${user.role == 'manager'}" class="flex flex-row">
+                    <%
+                        if(user.getRole() == UserRole.manager) {
+                    %>
                         <li class="pr-3">
                             <a href="${pageContext.request.contextPath}/users"
                                class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">
@@ -64,7 +89,9 @@
                                 Tags
                             </a>
                         </li>
-                    </c:if>
+                    <%
+                        }
+                    %>
                     <li>
                         <a href="${pageContext.request.contextPath}/tasks"
                            class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">
