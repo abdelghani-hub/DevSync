@@ -2,7 +2,7 @@ package org.youcode.devsync.servlet.bodies;
 
 import java.util.List;
 
-public class TaskRequestBody {
+public class TaskFilterRequestBody {
     private List<String> tagsIds;
     private String year;
     private String month;

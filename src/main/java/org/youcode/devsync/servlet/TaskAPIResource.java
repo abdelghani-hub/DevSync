@@ -8,7 +8,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.youcode.devsync.controller.API.TaskAPIController;
 import jakarta.inject.Inject;
-import org.youcode.devsync.servlet.bodies.TaskRequestBody;
+import org.youcode.devsync.servlet.bodies.TaskFilterRequestBody;
 
 @Path("/")
 public class TaskAPIResource {
@@ -21,7 +21,7 @@ public class TaskAPIResource {
     @Path("/tasks")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getTasks(TaskRequestBody requestBody) {
+    public Response getTasks(TaskFilterRequestBody requestBody) {
         return taskAPIController.index(requestBody.getTagsIds(), requestBody.getYear(), requestBody.getMonth());
     }
 }

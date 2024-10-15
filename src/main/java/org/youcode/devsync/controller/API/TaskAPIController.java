@@ -52,11 +52,11 @@ public class TaskAPIController {
     }
 
     private boolean filterByYear(Task task, String year) {
-        return year == null || task.getStartDate().getYear() == Integer.parseInt(year);
+        return year == null || year.equals("all") || task.getStartDate().getYear() == Integer.parseInt(year);
     }
 
     private boolean filterByMonth(Task task, String month) {
-        return month == null || task.getStartDate().getMonthValue() == Integer.parseInt(month);
+        return month == null || month.equals("all") || task.getStartDate().getMonthValue() == Integer.parseInt(month);
     }
 
     private String formatPercentage(List<Task> tasks, TaskStatus status) {
