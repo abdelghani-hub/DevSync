@@ -125,4 +125,23 @@ public class UserRepository implements RepositoryInterface<User> {
             entityManager.close();
         }
     }
+
+    public Optional<User> findByUsername(String username) {
+        EntityManager entityManager = getEntityManager();
+        try {
+            entityManager.getTransaction().begin();
+            User user = entityManager.createQuery("SELECT u FROM User u WHERE u.username = :username", User.class)
+                    .setParameter("username", username)
+                    .getSingleResult();
+            entityManager.getTransaction().commit();
+            return Optional.of(user);
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (entityManager.getTransaction().isActive())
+                entityManager.getTransaction().rollback();
+            return Optional.empty();
+        } finally {
+            entityManager.close();
+        }
+    }
 }

@@ -32,6 +32,11 @@ public class TagService {
             throw new IllegalArgumentException("Invalid tag");
         }
 
+        // validate name unique
+        if (tagRepository.findByName(tag.getName()).isPresent()) {
+            throw new IllegalArgumentException("Tag already exists");
+        }
+
         return tagRepository.create(tag);
     }
 

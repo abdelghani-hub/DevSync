@@ -34,6 +34,14 @@ public class UserService {
             throw new IllegalArgumentException("Invalid user");
         }
 
+        if (this.getUserByEmail(user.getEmail()).isPresent()) {
+            throw new IllegalArgumentException("Email already exists");
+        }
+
+        if (userRepository.findByUsername(user.getUsername()).isPresent()) {
+            throw new IllegalArgumentException("Username already exists");
+        }
+
         return userRepository.create(user);
     }
 
