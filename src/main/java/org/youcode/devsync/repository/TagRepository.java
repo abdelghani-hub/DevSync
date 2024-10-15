@@ -98,4 +98,22 @@ public class TagRepository implements RepositoryInterface<Tag> {
             entityManager.close();
         }
     }
+
+    public Optional<Tag> findByName(String name) {
+        EntityManager entityManager = getEntityManager();
+        try {
+            entityManager.getTransaction().begin();
+            Tag tag = entityManager.createQuery("SELECT u FROM Tag u WHERE u.name = :name", Tag.class)
+                    .setParameter("name", name)
+                    .getSingleResult();
+            entityManager.getTransaction().commit();
+            return Optional.ofNullable(tag);
+        } catch (Exception e) {
+            e.printStackTrace();
+            entityManager.getTransaction().rollback();
+            return Optional.empty();
+        } finally {
+            entityManager.close();
+        }
+    }
 }
