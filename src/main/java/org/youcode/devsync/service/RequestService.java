@@ -20,13 +20,19 @@ public class RequestService {
     }
 
     public Optional<Request> getRequestById(Long id) {
+        // validate id
+        if (id == null || id <= 0) {
+            throw new IllegalArgumentException("Id must be provided");
+        }
         return requestRepository.findById(id);
     }
 
     public Optional<Request> createRequest(Request request) {
+        // validate request
         if (request == null || request.getRequester() == null || request.getTask() == null || request.getType() == null) {
             throw new IllegalArgumentException("Request, requester, task and type must be provided");
         }
+
         return requestRepository.create(request);
     }
 
@@ -37,11 +43,24 @@ public class RequestService {
         return requestRepository.update(request);
     }
 
-    public Request deleteRequest(Request u) {
-        return requestRepository.delete(u);
+    public Request deleteRequest(Request request) {
+        // validate request
+        if (request == null || request.getId() == null) {
+            throw new IllegalArgumentException("Request and id must be provided");
+        }
+        return requestRepository.delete(request);
     }
 
     public String validateRequest(Request newRequest) {
+        // Request must be provided
+        if (newRequest == null)
+            return "Request must be provided";
+
+        // Request type must be provided
+        if (newRequest.getType() == null)
+            return "Request type must be provided";
+
+
 
         // Requester must be a user
         if (newRequest.getRequester() == null || newRequest.getRequester().getId() == null)
@@ -67,6 +86,15 @@ public class RequestService {
     }
 
     public Optional<Request> respondToRequest(Request request, RequestStatus status) {
+        // validate request
+        if (request == null || request.getId() == null) {
+            throw new IllegalArgumentException("Request and id must be provided");
+        }
+        // validate status
+        if (status == null) {
+            throw new IllegalArgumentException("Status must be provided");
+        }
+
         request.setStatus(status);
         request.setRespondedAt(LocalDateTime.now());
         return this.updateRequest(request);

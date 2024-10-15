@@ -18,12 +18,20 @@ public class TokenService {
     }
 
     public Token createToken(Token token) {
+        // Validate token
+        if (token == null || token.getModificationTokens() == null || token.getDeletionTokens() == null) {
+            throw new IllegalArgumentException("Invalid token");
+        }
         Optional<Token> tokenOp = tokenRepository.create(token);
         tokenOp.ifPresent(t -> t.setId(t.getId()));
         return token;
     }
 
     public Optional<Token> updateToken(Token token) {
+        // Validate token
+        if (token == null || token.getModificationTokens() == null || token.getDeletionTokens() == null) {
+            throw new IllegalArgumentException("Invalid token");
+        }
         return tokenRepository.update(token);
     }
 

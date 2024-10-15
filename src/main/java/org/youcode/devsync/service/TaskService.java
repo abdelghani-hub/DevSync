@@ -21,18 +21,42 @@ public class TaskService {
     }
 
     public Optional<Task> getTaskById(Long id) {
+        // validate id
+        if (id == null || id <= 0) {
+            throw new IllegalArgumentException("Invalid id");
+        }
         return taskRepository.findById(id);
     }
 
     public Optional<Task> createTask(Task task) {
+        // validate task
+        if (task == null || task.getTitle() == null || task.getTitle().isEmpty()
+            || task.getCreatedBy() == null || task.getAssignedTo() == null
+            || task.getStartDate() == null || task.getDeadline() == null
+            || task.getTags() == null || task.getTags().isEmpty()
+            || task.getStatus() == null) {
+            throw new IllegalArgumentException("Invalid task");
+        }
         return taskRepository.create(task);
     }
 
     public Optional<Task> updateTask(Task task) {
+        // validate task
+        if (task == null || task.getTitle() == null || task.getTitle().isEmpty()
+            || task.getCreatedBy() == null || task.getAssignedTo() == null
+            || task.getStartDate() == null || task.getDeadline() == null
+            || task.getTags() == null || task.getTags().isEmpty()
+            || task.getStatus() == null || task.getId() == null || task.getId() <= 0) {
+            throw new IllegalArgumentException("Invalid task");
+        }
         return taskRepository.update(task);
     }
 
     public Boolean markTaskAsDone(Task task) {
+        // Validate task
+        if (task == null || task.getId() == null || task.getId() <= 0) {
+            throw new IllegalArgumentException("Invalid task");
+        }
         // Rule 4 : A task can only be marked as done before the deadline
         if (!LocalDate.now().isAfter(task.getDeadline())) {
             task.setStatus(TaskStatus.done);
@@ -48,11 +72,23 @@ public class TaskService {
         return taskRepository.findByAssignedTo(user);
     }
 
-    public Task deleteTask(Task u) {
-        return taskRepository.delete(u);
+    public Task deleteTask(Task task) {
+        // validate task
+        if (task == null || task.getId() == null || task.getId() <= 0) {
+            throw new IllegalArgumentException("Invalid task");
+        }
+        return taskRepository.delete(task);
     }
 
     public String validateTask(Task newTask) {
+        if (newTask == null) {
+            return "Not a task";
+        }
+
+        if(newTask.getCreatedBy() == null || newTask.getAssignedTo() == null){
+            return "Task must have a creator and an assignee.";
+        }
+
         // Rule 1 : Make sure a task cannot be created in the past.
         if (newTask.getStartDate().isBefore(LocalDate.now())) {
             return "Task start date cannot be in the past.";
