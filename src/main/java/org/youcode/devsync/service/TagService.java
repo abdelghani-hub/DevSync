@@ -5,6 +5,7 @@ import org.youcode.devsync.repository.TagRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class TagService {
     private TagRepository tagRepository;
@@ -31,5 +32,12 @@ public class TagService {
 
     public Tag deleteTag(Tag tag) {
         return tagRepository.delete(tag);
+    }
+
+    public List<Tag> getTagsByIds(List<Long> ids) {
+        List<Tag> tags = tagRepository.findAll();
+        return tags.stream()
+                .filter(tag -> ids.contains(tag.getId()))
+                .collect(Collectors.toList());
     }
 }

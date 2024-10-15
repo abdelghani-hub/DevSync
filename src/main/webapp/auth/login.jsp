@@ -10,7 +10,7 @@
 <!-- -->
 <jsp:include page="../layouts/header.jsp" />
 
-<section class="h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+<section class=" bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
     <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto w-full">
         <a href="${pageContext.request.contextPath}" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
             <img class="w-8 h-8 mr-2" src="https://raw.githubusercontent.com/abdelghani1002/Taskify-Frontend/refs/heads/main/src/assets/logo.png" alt="logo">

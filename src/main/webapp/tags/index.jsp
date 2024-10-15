@@ -12,7 +12,7 @@
 <!-- -->
 <jsp:include page="../layouts/header.jsp"/>
 
-<section class="bg-gray-50 dark:bg-gray-900 py-3 sm:py-5 h-screen">
+<section class="bg-gray-50 dark:bg-gray-900 py-3 sm:py-5 ">
     <div class="px-4 mx-auto lg:px-12 ">
         <div class="relative overflow-hidden bg-white shadow-md dark:bg-gray-800 sm:rounded-lg">
             <div class="">
@@ -49,13 +49,11 @@
                                 </td>
                                 <th scope="row"
                                     class="flex items-center justify-center px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    <img src="https://flowbite.s3.amazonaws.com/blocks/application-ui/products/imac-front-image.png"
-                                         alt="iMac Front Image" class="w-auto h-8 mr-3">
                                         ${tag.name}
                                 </th>
                                 <td class="px-4 py-2 text-center">
-                                    <span class="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300">
-                                            45
+                                    <span class="bg-cyan-100 text-cyan-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-cyan-900 dark:text-cyan-300">
+                                            ${tag.getUsages()}
                                     </span>
                                 </td>
                                 <td class="flex items-center justify-center x-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">

@@ -15,5 +15,7 @@ public class MyServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) {
         if(request.getServletPath().equals("/"))
             mainController.index(request, response);
+        if(request.getServletPath().equals("/statistics"))
+            mainController.statistics(request, response);
     }
 }
