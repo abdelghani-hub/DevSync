@@ -10,8 +10,8 @@ import java.util.stream.Collectors;
 public class TagService {
     private TagRepository tagRepository;
 
-    public TagService() {
-        tagRepository = new TagRepository();
+    public TagService(TagRepository tagRepository) {
+        this.tagRepository = tagRepository;
     }
 
     public List<Tag> getAllTags() {
@@ -41,16 +41,33 @@ public class TagService {
     }
 
     public Optional<Tag> updateTag(Tag tag) {
-        // validate tag
-        if(tag == null || tag.getName() == null || tag.getName().isEmpty()) {
+        // Validate tag
+        if (tag == null || tag.getName() == null || tag.getName().isEmpty()) {
             throw new IllegalArgumentException("Invalid tag");
         }
-        // validate id
-        if(tag.getId() == null || tag.getId() <= 0) {
+
+        // Validate ID
+        if (tag.getId() == null || tag.getId() <= 0) {
             throw new IllegalArgumentException("Invalid tag id");
         }
+
+        // Ensure that the tag exists (by ID) to update
+        Optional<Tag> existingTagById = tagRepository.findById(tag.getId());
+        if (existingTagById.isEmpty()) {
+            throw new IllegalArgumentException("Tag does not exist");
+        }
+
+        // Ensure the new tag name is unique if it's being changed
+        Optional<Tag> tagWithSameName = tagRepository.findByName(tag.getName());
+        if (tagWithSameName.isPresent() && !tagWithSameName.get().getId().equals(tag.getId())) {
+            // If another tag (different ID) with the same name exists, throw "Tag already exists"
+            throw new IllegalArgumentException("Tag already exists");
+        }
+
+        // If the name is unique or belongs to the same tag, proceed with the update
         return tagRepository.update(tag);
     }
+
 
     public Tag deleteTag(Tag tag) {
         // validate tag

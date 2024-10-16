@@ -5,6 +5,7 @@ import org.json.JSONObject;
 import org.youcode.devsync.model.Tag;
 import org.youcode.devsync.model.Task;
 import org.youcode.devsync.model.TaskStatus;
+import org.youcode.devsync.repository.TagRepository;
 import org.youcode.devsync.service.TagService;
 import org.youcode.devsync.service.TaskService;
 
@@ -18,7 +19,7 @@ public class TaskAPIController {
 
     public TaskAPIController() {
         taskService = new TaskService();
-        tagService = new TagService();
+        tagService = new TagService(new TagRepository());
     }
 
     public Response index(List<String> tagsIds, String year, String month) {
