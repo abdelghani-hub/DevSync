@@ -33,3 +33,9 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+### Test ###
+test-output/
+test-output.xml
+test-output.xml.zip
+test_planning.md
