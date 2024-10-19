@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.youcode.devsync.model.*;
+import org.youcode.devsync.repository.TagRepository;
 import org.youcode.devsync.service.TagService;
 import org.youcode.devsync.service.TaskService;
 import org.youcode.devsync.service.UserService;
@@ -25,7 +26,7 @@ public class TaskController {
 
     public TaskController() {
         taskService = new TaskService();
-        tagService = new TagService();
+        tagService = new TagService(new TagRepository());
         userService = new UserService();
         mainController = new MainController();
     }

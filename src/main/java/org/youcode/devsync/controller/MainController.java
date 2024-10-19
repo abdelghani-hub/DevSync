@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.youcode.devsync.model.Tag;
 import org.youcode.devsync.model.User;
 import org.youcode.devsync.model.UserRole;
+import org.youcode.devsync.repository.TagRepository;
 import org.youcode.devsync.service.TagService;
 
 import java.util.List;
@@ -14,7 +15,7 @@ public class MainController {
     private TagService tagService;
 
     public MainController() {
-        tagService = new TagService();
+        tagService = new TagService(new TagRepository());
     }
 
     public void index(HttpServletRequest request, HttpServletResponse response) {
