@@ -14,8 +14,11 @@
 
 <section class="bg-gray-50 dark:bg-gray-900">
     <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto">
-        <a href="${pageContext.request.contextPath}" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
-            <img class="w-8 h-8 mr-2" src="https://raw.githubusercontent.com/abdelghani1002/Taskify-Frontend/refs/heads/main/src/assets/logo.png" alt="logo">
+        <a href="${pageContext.request.contextPath}"
+           class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
+            <img class="w-8 h-8 mr-2"
+                 src="https://raw.githubusercontent.com/abdelghani1002/Taskify-Frontend/refs/heads/main/src/assets/logo.png"
+                 alt="logo">
             DevSync
         </a>
         <div class="w-1/2 bg-white rounded-lg shadow dark:border md:mt-0 dark:bg-gray-800 dark:border-gray-700">
@@ -41,39 +44,42 @@
                                   placeholder="Enter Description ..">${task.description}</textarea>
                     </div>
 
-                    <div>
-                        <label for="start_date"
-                               class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Start Date</label>
-                        <div class="relative max-w-sm">
-                            <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
-                                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
-                                     xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                    <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
-                                </svg>
+                    <div class="flex justify-between w-full">
+                        <div>
+                            <label for="start_date"
+                                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Start
+                                Date</label>
+                            <div class="relative max-w-sm">
+                                <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+                                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                                         xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
+                                    </svg>
+                                </div>
+                                <input datepicker id="start_date" name="start_date"
+                                       value="${start_date}' pattern='M/d/yyyy'/>"
+                                       type="text"
+                                       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                       placeholder="Select date">
                             </div>
-                            <input datepicker id="start_date" name="start_date"
-                                   value="${start_date}' pattern='M/d/yyyy'/>"
-                                   type="text"
-                                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                   placeholder="Select date">
                         </div>
-                    </div>
 
-                    <div>
-                        <label for="deadline"
-                               class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">DeadLine</label>
-                        <div class="relative max-w-sm">
-                            <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
-                                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
-                                     xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                    <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
-                                </svg>
+                        <div>
+                            <label for="deadline"
+                                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">DeadLine</label>
+                            <div class="relative max-w-sm">
+                                <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+                                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                                         xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
+                                    </svg>
+                                </div>
+                                <input datepicker id="deadline" name="deadline"
+                                       value="${deadline}' pattern='M/d/yyyy'/>"
+                                       type="text"
+                                       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                       placeholder="Select date">
                             </div>
-                            <input datepicker id="deadline" name="deadline"
-                                   value="${deadline}' pattern='M/d/yyyy'/>"
-                                   type="text"
-                                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                   placeholder="Select date">
                         </div>
                     </div>
 
@@ -86,7 +92,7 @@
                                 <option value="${tag.id}"
                                         <c:if test="${task.tags.contains(tag)}">selected</c:if>
                                 >
-                                    ${tag.name}
+                                        ${tag.name}
                                 </option>
                             </c:forEach>
                         </select>
@@ -103,7 +109,7 @@
                                     <option value="${emp.id}"
                                             <c:if test="${task.assignedTo.equals(emp)}">selected</c:if>
                                     >
-                                        ${emp.username}
+                                            ${emp.username}
                                     </option>
                                 </c:forEach>
                             </select>
