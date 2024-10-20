@@ -88,4 +88,18 @@ public class TagService {
                 .filter(tag -> ids.contains(tag.getId()))
                 .collect(Collectors.toList());
     }
+
+    public String validateTag(Tag tag) {
+        // validate tag
+        if(tag == null || tag.getName() == null || tag.getName().isEmpty()) {
+            return "Invalid tag";
+        }
+
+        // validate name unique
+        if (tagRepository.findByName(tag.getName()).isPresent()) {
+            return "Tag already exists";
+        }
+
+        return null;
+    }
 }
