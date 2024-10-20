@@ -27,6 +27,10 @@ public class TagServiceTest {
         this.tagService = new TagService(tagRepository);
     }
 
+    /**
+     * Test for retrieving all tags.
+     * Verifies that the service returns the correct list of tags.
+     */
     @Test
     public void testGetAllTags() {
         when(tagRepository.findAll()).thenReturn(List.of(
@@ -43,6 +47,10 @@ public class TagServiceTest {
         ), tags);
     }
 
+    /**
+     * Test for retrieving a tag by its ID.
+     * Verifies that the service returns the correct tag or an empty result.
+     */
     @Test
     public void testGetTagById() {
         when(tagRepository.findById(10L)).thenReturn(java.util.Optional.of(
@@ -54,6 +62,10 @@ public class TagServiceTest {
         assert tagService.getTagById(20L).isEmpty();
     }
 
+    /**
+     * Test for creating a new tag.
+     * Verifies that the service creates and returns the new tag.
+     */
     @Test
     public void testCreateNewTag() {
         Tag tag = new Tag("Java");
@@ -63,16 +75,23 @@ public class TagServiceTest {
         assertEquals(java.util.Optional.of(tag), tagService.createTag(tag));
     }
 
+    /**
+     * Test for creating an existing tag.
+     * Verifies that the service throws an IllegalArgumentException with the correct message.
+     */
     @Test
     public void testCreateExistingTag() {
         Tag tag = new Tag("Java");
         when(tagRepository.findByName("Java")).thenReturn(java.util.Optional.of(tag));
 
-        // assert IllegalArgumentException with message "Tag already exists"
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> tagService.createTag(tag));
         assertEquals("Tag already exists", exception.getMessage());
     }
 
+    /**
+     * Test for updating a non-existing tag.
+     * Verifies that the service throws an IllegalArgumentException with the correct message.
+     */
     @Test
     public void testUpdateTagWithNonExistingTag() {
         Tag tagToUpdate = new Tag(20L, "Java");
@@ -80,85 +99,98 @@ public class TagServiceTest {
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> tagService.updateTag(tagToUpdate));
         assertEquals("Tag does not exist", exception.getMessage());
     }
-//    ########################################
 
+    /**
+     * Test for retrieving a tag by a valid ID.
+     * Verifies that the service returns the correct tag.
+     */
     @Test
     public void testGetTagById_ValidId() {
-        // Arrange
         Long id = 1L;
         Tag tag = new Tag("Tag1");
         when(tagRepository.findById(id)).thenReturn(Optional.of(tag));
 
-        // Act
         Optional<Tag> result = tagService.getTagById(id);
 
-        // Assert
         assertTrue(result.isPresent());
         assertEquals("Tag1", result.get().getName());
         verify(tagRepository, times(1)).findById(id);
     }
 
+    /**
+     * Test for retrieving a tag by an invalid ID.
+     * Verifies that the service throws an IllegalArgumentException with the correct message.
+     */
     @Test
     public void testGetTagById_InvalidId() {
-        // Act & Assert
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> tagService.getTagById(-1L));
         assertEquals("Invalid id", exception.getMessage());
     }
 
+    /**
+     * Test for creating a valid tag.
+     * Verifies that the service creates and returns the new tag.
+     */
     @Test
     public void testCreateTag_ValidTag() {
-        // Arrange
         Tag tag = new Tag("NewTag");
         when(tagRepository.findByName(tag.getName())).thenReturn(Optional.empty());
         when(tagRepository.create(tag)).thenReturn(Optional.of(tag));
 
-        // Act
         Optional<Tag> result = tagService.createTag(tag);
 
-        // Assert
         assertTrue(result.isPresent());
         assertEquals("NewTag", result.get().getName());
         verify(tagRepository, times(1)).findByName(tag.getName());
         verify(tagRepository, times(1)).create(tag);
     }
 
+    /**
+     * Test for creating a duplicate tag.
+     * Verifies that the service throws an IllegalArgumentException with the correct message.
+     */
     @Test
     public void testCreateTag_DuplicateTag() {
-        // Arrange
         Tag tag = new Tag("DuplicateTag");
         when(tagRepository.findByName(tag.getName())).thenReturn(Optional.of(tag));
 
-        // Act & Assert
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> tagService.createTag(tag));
         assertEquals("Tag already exists", exception.getMessage());
     }
 
+    /**
+     * Test for creating an invalid tag.
+     * Verifies that the service throws an IllegalArgumentException with the correct message.
+     */
     @Test
     public void testCreateTag_InvalidTag() {
-        // Act & Assert
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> tagService.createTag(new Tag("")));
         assertEquals("Invalid tag", exception.getMessage());
     }
 
+    /**
+     * Test for updating a valid tag.
+     * Verifies that the service throws an IllegalArgumentException with the correct message if the tag already exists.
+     */
     @Test
     public void testUpdateTag_ValidTag() {
-        // Arrange
         Tag tag = new Tag(10L, "UpdatedTag");
         when(tagRepository.findById(tag.getId())).thenReturn(Optional.of(tag));
         when(tagRepository.findByName("ExistingTag")).thenReturn(Optional.of(new Tag(20L, "ExistingTag")));
 
         tag.setName("ExistingTag");
-        // Act
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> tagService.updateTag(tag));
 
-        // Assert
         assertEquals("Tag already exists", exception.getMessage());
         verify(tagRepository, times(0)).update(tag);
     }
 
+    /**
+     * Test for updating a tag with an invalid ID.
+     * Verifies that the service throws an IllegalArgumentException with the correct message.
+     */
     @Test
     public void testUpdateTag_InvalidTagId() {
-        // Act & Assert
         IllegalArgumentException exception = assertThrows(
                 IllegalArgumentException.class,
                 () -> tagService.updateTag(new Tag("InvalidTag"))
@@ -166,32 +198,39 @@ public class TagServiceTest {
         assertEquals("Invalid tag id", exception.getMessage());
     }
 
+    /**
+     * Test for deleting a valid tag.
+     * Verifies that the service deletes and returns the tag.
+     */
     @Test
     public void testDeleteTag_ValidTag() {
-        // Arrange
         Tag tag = new Tag("DeleteTag");
         tag.setId(1L);
         when(tagRepository.delete(tag)).thenReturn(tag);
 
-        // Act
         Tag result = tagService.deleteTag(tag);
 
-        // Assert
         assertNotNull(result);
         assertEquals("DeleteTag", result.getName());
         verify(tagRepository, times(1)).delete(tag);
     }
 
+    /**
+     * Test for deleting an invalid tag.
+     * Verifies that the service throws an IllegalArgumentException with the correct message.
+     */
     @Test
     public void testDeleteTag_InvalidTag() {
-        // Act & Assert
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> tagService.deleteTag(new Tag()));
         assertEquals("Invalid tag", exception.getMessage());
     }
 
+    /**
+     * Test for retrieving tags by valid IDs.
+     * Verifies that the service returns the correct list of tags.
+     */
     @Test
     public void testGetTagsByIds_ValidIds() {
-        // Arrange
         Tag tag1 = new Tag("Tag1");
         tag1.setId(1L);
         Tag tag2 = new Tag("Tag2");
@@ -199,19 +238,20 @@ public class TagServiceTest {
         List<Long> ids = Arrays.asList(1L, 2L);
         when(tagRepository.findAll()).thenReturn(Arrays.asList(tag1, tag2));
 
-        // Act
         List<Tag> result = tagService.getTagsByIds(ids);
 
-        // Assert
         assertEquals(2, result.size());
         assertEquals("Tag1", result.get(0).getName());
         assertEquals("Tag2", result.get(1).getName());
         verify(tagRepository, times(1)).findAll();
     }
 
+    /**
+     * Test for retrieving tags by null IDs.
+     * Verifies that the service throws an IllegalArgumentException with the correct message.
+     */
     @Test
     public void testGetTagsByIds_NullIds() {
-        // Act & Assert
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> tagService.getTagsByIds(null));
         assertEquals("Invalid ids", exception.getMessage());
     }

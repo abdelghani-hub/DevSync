@@ -37,6 +37,10 @@ public class UserServiceTest {
         }
     }
 
+    /**
+     * Test creating a valid user.
+     * Expects: The user to be successfully created and returned.
+     */
     @Test
     public void testCreateUser_ValidUser() {
         User user = new User("testuser", "test@example.com", "password123", UserRole.user);
@@ -51,29 +55,49 @@ public class UserServiceTest {
         verify(userRepository, times(1)).create(user);
     }
 
+    /**
+     * Test creating a null user.
+     * Expects: An IllegalArgumentException to be thrown.
+     */
     @Test
     public void testCreateUser_NullUser() {
         assertThrows(IllegalArgumentException.class, () -> userService.createUser(null));
     }
 
+    /**
+     * Test creating a user with an empty username.
+     * Expects: An IllegalArgumentException to be thrown.
+     */
     @Test
     public void testCreateUser_EmptyUsername() {
         User user = new User("", "test@example.com", "password123", UserRole.user);
         assertThrows(IllegalArgumentException.class, () -> userService.createUser(user));
     }
 
+    /**
+     * Test creating a user with a null email.
+     * Expects: An IllegalArgumentException to be thrown.
+     */
     @Test
     public void testCreateUser_NullEmail() {
         User user = new User("testuser", null, "password123", UserRole.user);
         assertThrows(IllegalArgumentException.class, () -> userService.createUser(user));
     }
 
+    /**
+     * Test creating a user with an empty password.
+     * Expects: An IllegalArgumentException to be thrown.
+     */
     @Test
     public void testCreateUser_EmptyPassword() {
         User user = new User("testuser", "test@example.com", "",UserRole.user);
         assertThrows(IllegalArgumentException.class, () -> userService.createUser(user));
     }
 
+    /**
+     * Test creating a user with an existing email.
+     * Expects: An IllegalArgumentException to be thrown and no user to be created.
+     */
     @Test
     public void testCreateUser_ExistingEmail() {
         User user = new User("testuser", "existing@example.com", "password123", UserRole.user);
@@ -83,6 +107,10 @@ public class UserServiceTest {
         verify(userRepository, never()).create(any(User.class));
     }
 
+    /**
+     * Test creating a user with an existing username.
+     * Expects: An IllegalArgumentException to be thrown and no user to be created.
+     */
     @Test
     public void testCreateUser_ExistingUsername() {
         User user = new User("existinguser", "test@example.com", "password123", UserRole.user);
@@ -93,6 +121,10 @@ public class UserServiceTest {
         verify(userRepository, never()).create(any(User.class));
     }
 
+    /**
+     * Test updating a valid user.
+     * Expects: The user to be successfully updated and returned.
+     */
     @Test
     public void testUpdateUser_ValidUser() {
         User user = new User(1L, "updateduser", "updated@example.com", "newpassword123");
@@ -105,41 +137,69 @@ public class UserServiceTest {
         verify(userRepository, times(1)).update(user);
     }
 
+    /**
+     * Test updating a null user.
+     * Expects: An IllegalArgumentException to be thrown.
+     */
     @Test
     public void testUpdateUser_NullUser() {
         assertThrows(IllegalArgumentException.class, () -> userService.updateUser(null));
     }
 
+    /**
+     * Test updating a user with an empty username.
+     * Expects: An IllegalArgumentException to be thrown.
+     */
     @Test
     public void testUpdateUser_EmptyUsername() {
         User user = new User(1L, "", "test@example.com", "password123");
         assertThrows(IllegalArgumentException.class, () -> userService.updateUser(user));
     }
 
+    /**
+     * Test updating a user with a null email.
+     * Expects: An IllegalArgumentException to be thrown.
+     */
     @Test
     public void testUpdateUser_NullEmail() {
         User user = new User(1L, "testuser", null, "password123");
         assertThrows(IllegalArgumentException.class, () -> userService.updateUser(user));
     }
 
+    /**
+     * Test updating a user with an empty password.
+     * Expects: An IllegalArgumentException to be thrown.
+     */
     @Test
     public void testUpdateUser_EmptyPassword() {
         User user = new User(1L, "testuser", "test@example.com", "");
         assertThrows(IllegalArgumentException.class, () -> userService.updateUser(user));
     }
 
+    /**
+     * Test updating a user with an invalid ID.
+     * Expects: An IllegalArgumentException to be thrown.
+     */
     @Test
     public void testUpdateUser_InvalidId() {
         User user = new User("testuser", "test@example.com", "password123", UserRole.user);
         assertThrows(IllegalArgumentException.class, () -> userService.updateUser(user));
     }
 
+    /**
+     * Test updating a user with a null ID.
+     * Expects: An IllegalArgumentException to be thrown.
+     */
     @Test
     public void testUpdateUser_NullId() {
         User user = new User("testuser", "test@example.com", "password123", UserRole.user);
         assertThrows(IllegalArgumentException.class, () -> userService.updateUser(user));
     }
 
+    /**
+     * Test retrieving all users.
+     * Expects: A list of all users to be returned.
+     */
     @Test
     public void testGetAllUsers() {
         List<User> users = Arrays.asList(
@@ -155,6 +215,10 @@ public class UserServiceTest {
         verify(userRepository, times(1)).findAll();
     }
 
+    /**
+     * Test retrieving a user by a valid ID.
+     * Expects: The user with the given ID to be returned.
+     */
     @Test
     public void testGetUserById_ValidId() {
         Long id = 1L;
@@ -168,6 +232,10 @@ public class UserServiceTest {
         verify(userRepository, times(1)).findById(id);
     }
 
+    /**
+     * Test retrieving a user by an invalid ID.
+     * Expects: An IllegalArgumentException to be thrown for negative, zero, or null IDs.
+     */
     @Test
     public void testGetUserById_InvalidId() {
         assertThrows(IllegalArgumentException.class, () -> userService.getUserById(-1L));
@@ -177,6 +245,10 @@ public class UserServiceTest {
         verify(userRepository, never()).findById(any());
     }
 
+    /**
+     * Test retrieving a user by a non-existent ID.
+     * Expects: An empty Optional to be returned.
+     */
     @Test
     public void testGetUserById_NonExistentId() {
         Long id = 999L;
@@ -188,6 +260,10 @@ public class UserServiceTest {
         verify(userRepository, times(1)).findById(id);
     }
 
+    /**
+     * Test retrieving a user by a valid email.
+     * Expects: The user with the given email to be returned.
+     */
     @Test
     public void testGetUserByEmail_ValidEmail() {
         String email = "test@example.com";
@@ -201,6 +277,10 @@ public class UserServiceTest {
         verify(userRepository, times(1)).findByEmail(email);
     }
 
+    /**
+     * Test retrieving a user by an invalid email.
+     * Expects: An IllegalArgumentException to be thrown for null or invalid email formats.
+     */
     @Test
     public void testGetUserByEmail_InvalidEmail() {
         assertThrows(IllegalArgumentException.class, () -> userService.getUserByEmail(null));
@@ -209,6 +289,10 @@ public class UserServiceTest {
         verify(userRepository, never()).findByEmail(any());
     }
 
+    /**
+     * Test retrieving a user by a non-existent email.
+     * Expects: An empty Optional to be returned.
+     */
     @Test
     public void testGetUserByEmail_NonExistentEmail() {
         String email = "nonexistent@example.com";
@@ -220,6 +304,10 @@ public class UserServiceTest {
         verify(userRepository, times(1)).findByEmail(email);
     }
 
+    /**
+     * Test deleting a valid user.
+     * Expects: The deleted user to be returned.
+     */
     @Test
     public void testDeleteUser_ValidUser() {
         User user = new User(1L, "testuser", "test@example.com", "password123");
@@ -232,12 +320,20 @@ public class UserServiceTest {
         verify(userRepository, times(1)).delete(user);
     }
 
+    /**
+     * Test deleting a null user.
+     * Expects: An IllegalArgumentException to be thrown.
+     */
     @Test
     public void testDeleteUser_NullUser() {
         assertThrows(IllegalArgumentException.class, () -> userService.deleteUser(null));
         verify(userRepository, never()).delete(any());
     }
 
+    /**
+     * Test deleting a user with an invalid ID.
+     * Expects: An IllegalArgumentException to be thrown for zero, negative, or null IDs.
+     */
     @Test
     public void testDeleteUser_InvalidId() {
         User userWithInvalidId = new User(0L, "testuser", "test@example.com", "password123");
