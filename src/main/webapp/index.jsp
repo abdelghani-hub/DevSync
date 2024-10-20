@@ -15,7 +15,7 @@
         <div class="w-full flex justify-between px-16 py-16 h-full items-center">
             <div class="content-center justify-self-start md:col-span-7 md:text-start">
                 <h1 class="mb-4 text-4xl font-extrabold leading-none tracking-tight dark:text-white md:max-w-2xl md:text-5xl xl:text-6xl">Welcome to DevSync!<br />Tasks Management</h1>
-                <p class="mb-4 max-w-2xl text-gray-500 dark:text-gray-400 md:mb-12 md:text-lg mb-3 lg:mb-5 lg:text-xl">Discover amazing content and enjoy your stay.</p>
+                <p class="mb-4 max-w-2xl text-gray-500 dark:text-gray-400 md:mb-12 md:text-lg mb-3 lg:mb-5 lg:text-xl">Streamline your workflow, track your progress, and achieve more with ease.</p>
                 <a href="${pageContext.request.contextPath}/users?action=register" class="text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2">
                     Get Started
                 </a>
