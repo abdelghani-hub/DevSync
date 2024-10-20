@@ -52,7 +52,8 @@
                 %>
                 <div class="flex flex-row gap-2">
                     <div class="flex items-center gap-4">
-                        <img class="w-10 h-10 rounded-full"
+                        <img id="avatarButton" type="button" data-dropdown-toggle="userDropdown" data-dropdown-placement="bottom-start"
+                             class="w-10 h-10 rounded-full cursor-pointer"
                              src="https://flowbite.com/docs/images/people/profile-picture-2.jpg" alt="">
                         <div class="font-medium dark:text-white">
                             <div>
@@ -74,10 +75,11 @@
                             <div class="text-sm text-gray-500 dark:text-gray-400">${user.email}</div>
                         </div>
                     </div>
-                    <a href="${pageContext.request.contextPath}/users?action=logout"
-                       class="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">
-                        Log out
-                    </a>
+                    <div id="userDropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
+                        <div class="p-1">
+                            <a href="${pageContext.request.contextPath}/users?action=logout" class="block p-2 rounded text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</a>
+                        </div>
+                    </div>
                 </div>
                 <%
                 } else {
