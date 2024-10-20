@@ -54,8 +54,8 @@
                                         </div>
                                     </td>
                                     <th scope="row"
-                                        class="flex items-center px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        <img src="assets/images/profile.png"
+                                        class="flex items-center rounded px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        <img src="https://flowbite.com/docs/images/people/profile-picture-2.jpg"
                                              alt="profile Image" class="w-auto h-8 mr-3">
                                             ${user.username}
                                     </th>

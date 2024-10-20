@@ -294,8 +294,8 @@
                 }
             },
             stroke: {
-                colors: ["white"],
-                lineCap: "",
+                width: 1,
+                colors: ["purple"],
             },
             plotOptions: {
                 pie: {
