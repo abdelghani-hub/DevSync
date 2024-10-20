@@ -63,6 +63,15 @@ public class TagController {
     public void save(HttpServletRequest request, HttpServletResponse response) {
         String name = request.getParameter("name");
         Tag tag = new Tag(name);
+        String error = tagService.validateTag(tag);
+        if(error != null) {
+            try {
+                response.sendRedirect(request.getContextPath() + "/tags?action=create&error=" + error);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return;
+        }
         tagService.createTag(tag);
         try {
             response.sendRedirect("tags");
@@ -90,6 +99,15 @@ public class TagController {
         Optional<Tag> tag = tagService.getTagById(id);
         tag.ifPresent(value -> {
             value.setName(request.getParameter("name"));
+            String error = tagService.validateTag(value);
+            if(error != null) {
+                try {
+                    response.sendRedirect(request.getContextPath() + "/tags?action=edit&id=" + value.getId() + "&error=" + error);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return;
+            }
             tagService.updateTag(value);
             try {
                 response.sendRedirect("tags");
