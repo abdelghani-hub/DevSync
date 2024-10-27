@@ -71,210 +71,10 @@
     ├── pom.xml
     └── src
         ├── main
+        │   └── java
+        │       └── org.youcode.devsync // Main package 
         └── test
 ```
-
----
-
-## 🧩 Modules
-
-<details closed><summary>src.main.java.org.youcode.devsync</summary>
-
-| File                                                                                                                                     | Summary                   |
-|------------------------------------------------------------------------------------------------------------------------------------------|---------------------------|
-| [AppContextListener.java](https://github.com/abdelghani-hub/DevSync/blob/main/src/main/java/org/youcode/devsync/AppContextListener.java) | <code>❯ REPLACE-ME</code> |
-
-</details>
-
-<details closed><summary>src.main.java.org.youcode.devsync.servlet</summary>
-
-| File                                                                                                                                       | Summary                   |
-|--------------------------------------------------------------------------------------------------------------------------------------------|---------------------------|
-| [TaskAPIResource.java](https://github.com/abdelghani-hub/DevSync/blob/main/src/main/java/org/youcode/devsync/servlet/TaskAPIResource.java) | <code>❯ REPLACE-ME</code> |
-| [UserServlet.java](https://github.com/abdelghani-hub/DevSync/blob/main/src/main/java/org/youcode/devsync/servlet/UserServlet.java)         | <code>❯ REPLACE-ME</code> |
-| [TaskServlet.java](https://github.com/abdelghani-hub/DevSync/blob/main/src/main/java/org/youcode/devsync/servlet/TaskServlet.java)         | <code>❯ REPLACE-ME</code> |
-| [RequestServlet.java](https://github.com/abdelghani-hub/DevSync/blob/main/src/main/java/org/youcode/devsync/servlet/RequestServlet.java)   | <code>❯ REPLACE-ME</code> |
-| [MyServlet.java](https://github.com/abdelghani-hub/DevSync/blob/main/src/main/java/org/youcode/devsync/servlet/MyServlet.java)             | <code>❯ REPLACE-ME</code> |
-| [TagServlet.java](https://github.com/abdelghani-hub/DevSync/blob/main/src/main/java/org/youcode/devsync/servlet/TagServlet.java)           | <code>❯ REPLACE-ME</code> |
-
-</details>
-
-<details closed><summary>src.main.java.org.youcode.devsync.servlet.bodies</summary>
-
-| File                                                                                                                                                          | Summary                   |
-|---------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------|
-| [TaskFilterRequestBody.java](https://github.com/abdelghani-hub/DevSync/blob/main/src/main/java/org/youcode/devsync/servlet/bodies/TaskFilterRequestBody.java) | <code>❯ REPLACE-ME</code> |
-
-</details>
-
-<details closed><summary>src.main.java.org.youcode.devsync.model</summary>
-
-| File                                                                                                                                 | Summary                   |
-|--------------------------------------------------------------------------------------------------------------------------------------|---------------------------|
-| [TaskStatus.java](https://github.com/abdelghani-hub/DevSync/blob/main/src/main/java/org/youcode/devsync/model/TaskStatus.java)       | <code>❯ REPLACE-ME</code> |
-| [RequestStatus.java](https://github.com/abdelghani-hub/DevSync/blob/main/src/main/java/org/youcode/devsync/model/RequestStatus.java) | <code>❯ REPLACE-ME</code> |
-| [User.java](https://github.com/abdelghani-hub/DevSync/blob/main/src/main/java/org/youcode/devsync/model/User.java)                   | <code>❯ REPLACE-ME</code> |
-| [Request.java](https://github.com/abdelghani-hub/DevSync/blob/main/src/main/java/org/youcode/devsync/model/Request.java)             | <code>❯ REPLACE-ME</code> |
-| [Tag.java](https://github.com/abdelghani-hub/DevSync/blob/main/src/main/java/org/youcode/devsync/model/Tag.java)                     | <code>❯ REPLACE-ME</code> |
-| [Token.java](https://github.com/abdelghani-hub/DevSync/blob/main/src/main/java/org/youcode/devsync/model/Token.java)                 | <code>❯ REPLACE-ME</code> |
-| [RequestType.java](https://github.com/abdelghani-hub/DevSync/blob/main/src/main/java/org/youcode/devsync/model/RequestType.java)     | <code>❯ REPLACE-ME</code> |
-| [Task.java](https://github.com/abdelghani-hub/DevSync/blob/main/src/main/java/org/youcode/devsync/model/Task.java)                   | <code>❯ REPLACE-ME</code> |
-| [UserRole.java](https://github.com/abdelghani-hub/DevSync/blob/main/src/main/java/org/youcode/devsync/model/UserRole.java)           | <code>❯ REPLACE-ME</code> |
-
-</details>
-
-<details closed><summary>src.main.java.org.youcode.devsync.interfaces</summary>
-
-| File                                                                                                                                                  | Summary                   |
-|-------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------|
-| [RepositoryInterface.java](https://github.com/abdelghani-hub/DevSync/blob/main/src/main/java/org/youcode/devsync/interfaces/RepositoryInterface.java) | <code>❯ REPLACE-ME</code> |
-
-</details>
-
-<details closed><summary>src.main.java.org.youcode.devsync.scheduler</summary>
-
-| File                                                                                                                                                     | Summary                   |
-|----------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------|
-| [TokenSchedular.java](https://github.com/abdelghani-hub/DevSync/blob/main/src/main/java/org/youcode/devsync/scheduler/TokenSchedular.java)               | <code>❯ REPLACE-ME</code> |
-| [OverdueTasksScheduler.java](https://github.com/abdelghani-hub/DevSync/blob/main/src/main/java/org/youcode/devsync/scheduler/OverdueTasksScheduler.java) | <code>❯ REPLACE-ME</code> |
-
-</details>
-
-<details closed><summary>src.main.java.org.youcode.devsync.controller</summary>
-
-| File                                                                                                                                              | Summary                   |
-|---------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------|
-| [TaskController.java](https://github.com/abdelghani-hub/DevSync/blob/main/src/main/java/org/youcode/devsync/controller/TaskController.java)       | <code>❯ REPLACE-ME</code> |
-| [TagController.java](https://github.com/abdelghani-hub/DevSync/blob/main/src/main/java/org/youcode/devsync/controller/TagController.java)         | <code>❯ REPLACE-ME</code> |
-| [RequestController.java](https://github.com/abdelghani-hub/DevSync/blob/main/src/main/java/org/youcode/devsync/controller/RequestController.java) | <code>❯ REPLACE-ME</code> |
-| [UserController.java](https://github.com/abdelghani-hub/DevSync/blob/main/src/main/java/org/youcode/devsync/controller/UserController.java)       | <code>❯ REPLACE-ME</code> |
-| [MainController.java](https://github.com/abdelghani-hub/DevSync/blob/main/src/main/java/org/youcode/devsync/controller/MainController.java)       | <code>❯ REPLACE-ME</code> |
-
-</details>
-
-<details closed><summary>src.main.java.org.youcode.devsync.controller.API</summary>
-
-| File                                                                                                                                                  | Summary                   |
-|-------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------|
-| [TaskAPIController.java](https://github.com/abdelghani-hub/DevSync/blob/main/src/main/java/org/youcode/devsync/controller/API/TaskAPIController.java) | <code>❯ REPLACE-ME</code> |
-
-</details>
-
-<details closed><summary>src.main.java.org.youcode.devsync.repository</summary>
-
-| File                                                                                                                                              | Summary                   |
-|---------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------|
-| [TagRepository.java](https://github.com/abdelghani-hub/DevSync/blob/main/src/main/java/org/youcode/devsync/repository/TagRepository.java)         | <code>❯ REPLACE-ME</code> |
-| [TaskRepository.java](https://github.com/abdelghani-hub/DevSync/blob/main/src/main/java/org/youcode/devsync/repository/TaskRepository.java)       | <code>❯ REPLACE-ME</code> |
-| [RequestRepository.java](https://github.com/abdelghani-hub/DevSync/blob/main/src/main/java/org/youcode/devsync/repository/RequestRepository.java) | <code>❯ REPLACE-ME</code> |
-| [UserRepository.java](https://github.com/abdelghani-hub/DevSync/blob/main/src/main/java/org/youcode/devsync/repository/UserRepository.java)       | <code>❯ REPLACE-ME</code> |
-| [TokenRepository.java](https://github.com/abdelghani-hub/DevSync/blob/main/src/main/java/org/youcode/devsync/repository/TokenRepository.java)     | <code>❯ REPLACE-ME</code> |
-
-</details>
-
-<details closed><summary>src.main.java.org.youcode.devsync.util</summary>
-
-| File                                                                                                                                                | Summary                   |
-|-----------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------|
-| [StringUtil.java](https://github.com/abdelghani-hub/DevSync/blob/main/src/main/java/org/youcode/devsync/util/StringUtil.java)                       | <code>❯ REPLACE-ME</code> |
-| [EntityManagerProvider.java](https://github.com/abdelghani-hub/DevSync/blob/main/src/main/java/org/youcode/devsync/util/EntityManagerProvider.java) | <code>❯ REPLACE-ME</code> |
-
-</details>
-
-<details closed><summary>src.main.java.org.youcode.devsync.service</summary>
-
-| File                                                                                                                                     | Summary                   |
-|------------------------------------------------------------------------------------------------------------------------------------------|---------------------------|
-| [TokenService.java](https://github.com/abdelghani-hub/DevSync/blob/main/src/main/java/org/youcode/devsync/service/TokenService.java)     | <code>❯ REPLACE-ME</code> |
-| [RequestService.java](https://github.com/abdelghani-hub/DevSync/blob/main/src/main/java/org/youcode/devsync/service/RequestService.java) | <code>❯ REPLACE-ME</code> |
-| [TaskService.java](https://github.com/abdelghani-hub/DevSync/blob/main/src/main/java/org/youcode/devsync/service/TaskService.java)       | <code>❯ REPLACE-ME</code> |
-| [TagService.java](https://github.com/abdelghani-hub/DevSync/blob/main/src/main/java/org/youcode/devsync/service/TagService.java)         | <code>❯ REPLACE-ME</code> |
-| [UserService.java](https://github.com/abdelghani-hub/DevSync/blob/main/src/main/java/org/youcode/devsync/service/UserService.java)       | <code>❯ REPLACE-ME</code> |
-
-</details>
-
-<details closed><summary>src.main.webapp</summary>
-
-| File                                                                                                 | Summary                   |
-|------------------------------------------------------------------------------------------------------|---------------------------|
-| [index.jsp](https://github.com/abdelghani-hub/DevSync/blob/main/src/main/webapp/index.jsp)           | <code>❯ REPLACE-ME</code> |
-| [notFound.jsp](https://github.com/abdelghani-hub/DevSync/blob/main/src/main/webapp/notFound.jsp)     | <code>❯ REPLACE-ME</code> |
-| [statistics.jsp](https://github.com/abdelghani-hub/DevSync/blob/main/src/main/webapp/statistics.jsp) | <code>❯ REPLACE-ME</code> |
-
-</details>
-
-<details closed><summary>src.main.webapp.layouts</summary>
-
-| File                                                                                                 | Summary                   |
-|------------------------------------------------------------------------------------------------------|---------------------------|
-| [footer.jsp](https://github.com/abdelghani-hub/DevSync/blob/main/src/main/webapp/layouts/footer.jsp) | <code>❯ REPLACE-ME</code> |
-| [header.jsp](https://github.com/abdelghani-hub/DevSync/blob/main/src/main/webapp/layouts/header.jsp) | <code>❯ REPLACE-ME</code> |
-
-</details>
-
-<details closed><summary>src.main.webapp.tags</summary>
-
-| File                                                                                              | Summary                   |
-|---------------------------------------------------------------------------------------------------|---------------------------|
-| [index.jsp](https://github.com/abdelghani-hub/DevSync/blob/main/src/main/webapp/tags/index.jsp)   | <code>❯ REPLACE-ME</code> |
-| [edit.jsp](https://github.com/abdelghani-hub/DevSync/blob/main/src/main/webapp/tags/edit.jsp)     | <code>❯ REPLACE-ME</code> |
-| [create.jsp](https://github.com/abdelghani-hub/DevSync/blob/main/src/main/webapp/tags/create.jsp) | <code>❯ REPLACE-ME</code> |
-
-</details>
-
-<details closed><summary>src.main.webapp.tasks</summary>
-
-| File                                                                                               | Summary                   |
-|----------------------------------------------------------------------------------------------------|---------------------------|
-| [index.jsp](https://github.com/abdelghani-hub/DevSync/blob/main/src/main/webapp/tasks/index.jsp)   | <code>❯ REPLACE-ME</code> |
-| [assign.jsp](https://github.com/abdelghani-hub/DevSync/blob/main/src/main/webapp/tasks/assign.jsp) | <code>❯ REPLACE-ME</code> |
-| [edit.jsp](https://github.com/abdelghani-hub/DevSync/blob/main/src/main/webapp/tasks/edit.jsp)     | <code>❯ REPLACE-ME</code> |
-| [create.jsp](https://github.com/abdelghani-hub/DevSync/blob/main/src/main/webapp/tasks/create.jsp) | <code>❯ REPLACE-ME</code> |
-
-</details>
-
-<details closed><summary>src.main.webapp.users</summary>
-
-| File                                                                                             | Summary                   |
-|--------------------------------------------------------------------------------------------------|---------------------------|
-| [index.jsp](https://github.com/abdelghani-hub/DevSync/blob/main/src/main/webapp/users/index.jsp) | <code>❯ REPLACE-ME</code> |
-| [edit.jsp](https://github.com/abdelghani-hub/DevSync/blob/main/src/main/webapp/users/edit.jsp)   | <code>❯ REPLACE-ME</code> |
-
-</details>
-
-<details closed><summary>src.main.webapp.requests</summary>
-
-| File                                                                                                | Summary                   |
-|-----------------------------------------------------------------------------------------------------|---------------------------|
-| [index.jsp](https://github.com/abdelghani-hub/DevSync/blob/main/src/main/webapp/requests/index.jsp) | <code>❯ REPLACE-ME</code> |
-
-</details>
-
-<details closed><summary>src.main.webapp.auth</summary>
-
-| File                                                                                                  | Summary                   |
-|-------------------------------------------------------------------------------------------------------|---------------------------|
-| [login.jsp](https://github.com/abdelghani-hub/DevSync/blob/main/src/main/webapp/auth/login.jsp)       | <code>❯ REPLACE-ME</code> |
-| [register.jsp](https://github.com/abdelghani-hub/DevSync/blob/main/src/main/webapp/auth/register.jsp) | <code>❯ REPLACE-ME</code> |
-
-</details>
-
-<details closed><summary>src.test.java.org.youcode.devsync.service</summary>
-
-| File                                                                                                                                       | Summary                   |
-|--------------------------------------------------------------------------------------------------------------------------------------------|---------------------------|
-| [UserServiceTest.java](https://github.com/abdelghani-hub/DevSync/blob/main/src/test/java/org/youcode/devsync/service/UserServiceTest.java) | <code>❯ REPLACE-ME</code> |
-| [TagServiceTest.java](https://github.com/abdelghani-hub/DevSync/blob/main/src/test/java/org/youcode/devsync/service/TagServiceTest.java)   | <code>❯ REPLACE-ME</code> |
-
-</details>
-
-<details closed><summary>DataBase</summary>
-
-| File                                                                                                                              | Summary                   |
-|-----------------------------------------------------------------------------------------------------------------------------------|---------------------------|
-| [devsync_db_2024-10-13_205813.sql](https://github.com/abdelghani-hub/DevSync/blob/main/DataBase/devsync_db_2024-10-13_205813.sql) | <code>❯ REPLACE-ME</code> |
-
-</details>
 
 ---
 
@@ -282,7 +82,7 @@
 
 ### 🔖 Prerequisites
 
-**Java**: `version x.y.z`
+**JDK**: `version 11.y.z`
 
 ### 📦 Installation
 
@@ -311,7 +111,7 @@ Build the project from source:
 To run the project, execute the following command:
 
 ```sh
-❯ java -jar target/myapp.jar
+❯ java -jar target/DevSync-x.y.z.jar
 ```
 
 ### 🧪 Tests
@@ -321,15 +121,6 @@ Execute the test suite using the following command:
 ```sh
 ❯ mvn test
 ```
-
----
-
-## 📌 Project Roadmap
-
-- [X] **`Task 1`**: <strike>Implement feature one.</strike>
-- [ ] **`Task 2`**: Implement feature two.
-- [ ] **`Task 3`**: Implement feature three.
-
 ---
 
 ## 🤝 Contributing
@@ -371,27 +162,6 @@ Contributions are welcome! Here are several ways you can contribute:
 
 </details>
 
-<details closed>
-<summary>Contributor Graph</summary>
-<br>
-<p align="left">
-   <a href="https://github.com{/abdelghani-hub/DevSync/}graphs/contributors">
-      <img src="https://contrib.rocks/image?repo=abdelghani-hub/DevSync">
-   </a>
-</p>
-</details>
 
 ---
-
-## 🎗 License
-
-This project is protected under the [SELECT-A-LICENSE](https://choosealicense.com/licenses) License. For more details,
-refer to the [LICENSE](https://choosealicense.com/licenses/) file.
-
----
-
-## 🙌 Acknowledgments
-
-- List any resources, contributors, inspiration, etc. here.
-
----
+Keep coding and happy hacking! 🚀
