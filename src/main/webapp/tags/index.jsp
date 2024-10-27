@@ -14,7 +14,7 @@
 
 <section class="bg-gray-50 dark:bg-gray-900 py-3 sm:py-5 ">
     <div class="px-4 mx-auto lg:px-12 ">
-        <div class="relative overflow-hidden bg-white shadow-md dark:bg-gray-800 sm:rounded-lg">
+        <div class="overflow-hidden bg-white shadow-md dark:bg-gray-800 sm:rounded-lg">
             <div class="">
                 <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
